@@ -1,411 +1,1025 @@
 <!doctype html>
 <html lang="en">
 
-	<head>
-		<meta charset="utf-8">
+  <head>
+    <meta charset="utf-8">
 
-		<title>reveal.js – The HTML Presentation Framework</title>
+    <title>Make Your Own Lisp Interpreter in 10 Incremental Steps</title>
 
-		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
-		<meta name="author" content="Hakim El Hattab">
+    <meta name="description" content="Make Your Own Lisp Interpreter in 10 Incremental Steps">
+    <meta name="author" content="Joel Martin">
 
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
 
-		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/black.css" id="theme">
 
-		<!-- Code syntax highlighting -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
 
-		<!-- Printing and PDF exports -->
-		<script>
-			var link = document.createElement( 'link' );
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
-		</script>
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
 
-		<!--[if lt IE 9]>
-		<script src="lib/js/html5shiv.js"></script>
-		<![endif]-->
-	</head>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
 
-	<body>
+  <body>
 
-		<div class="reveal">
+    <div class="reveal">
 
-			<!-- Any section element inside of this container is displayed as a slide -->
-			<div class="slides">
-				<section>
-					<h1>Reveal.js</h1>
-					<h3>The HTML Presentation Framework</h3>
-					<p>
-						<small>Created by <a href="http://hakim.se">Hakim El Hattab</a> / <a href="http://twitter.com/hakimel">@hakimel</a></small>
-					</p>
-				</section>
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section>
+          <h1>Make-A-Lisp</h1>
+          <h3>Make Your Own Lisp Interpreter in 10 Incremental Steps</h3>
+          <p>LambdaConf 2016</p>
+          <p><i>Press 's' to show speaker notes</i></p>
+          <aside class="notes">
+            <ul>
+              <li>Silence phone
+              <li>Have sized window for mal demo open
+              <li>Prune foo from Makefile and foo/
+              <li>Build impls: bash, python, js, mal
+              <li>Setup screen sharing
+              <li>Preload <a href="https://github.com/kanaka/mal/blob/master/process/guide.md">guide</a>
+              <li>Preload <a href="https://github.com/kanaka/mal/blob/master/process/guide.md#step0">step0 image</a>, <a href="https://github.com/kanaka/mal/blob/master/process/guide.md#step1">step1 image</a>, <a href="https://github.com/kanaka/mal/blob/master/process/guide.md#step2">step2 image</a> in presentation window for quick tabbing.
+            </ul>
+          </aside>
+        </section>
 
-				<section>
-					<h2>Hello There</h2>
-					<p>
-						reveal.js enables you to create beautiful interactive slide decks using HTML. This presentation will show you examples of what it can do.
-					</p>
-				</section>
+        <section>
+          <h2>About Me</h2>
+          <p>Joel Martin (kanaka)</a></p>
+          <p><a href="https://github.com/kanaka">github.com/kanaka</a></p>
+          <p><a href="http://twitter.com/bus_kanaka">@bus_kanaka</a></p>
+          <p>Principal Software Engineer at ViaSat, Inc</p>
+          <p class="fragment">Clojure</p>
+          <p class="fragment">Satellites!</p>
+          <aside class="notes">
+            <ul>
+                <li>My name is Joel Martin
+                <li>Principal Software Engineer at ViaSat, Inc
+                <li>At ViaSat I get to build systems using <span
+                class="next">&gt;&gt;</span> Clojure, work with some
+                amazing people, and <span class="next">&gt;&gt;</span>
+                work at a company that does broadband Internet from
+                space.
+                <li>Thanks to LambdaConf organizers for a great
+                conference so far!
+            </ul>
+          </aside>
+        </section>
 
-				<!-- Example of nested vertical slides -->
-				<section>
-					<section>
-						<h2>Vertical Slides</h2>
-						<p>Slides can be nested inside of each other.</p>
-						<p>Use the <em>Space</em> key to navigate through all slides.</p>
-						<br>
-						<a href="#" class="navigate-down">
-							<img width="178" height="238" data-src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Down arrow">
-						</a>
-					</section>
-					<section>
-						<h2>Basement Level 1</h2>
-						<p>Nested slides are useful for adding additional detail underneath a high level horizontal slide.</p>
-					</section>
-					<section>
-						<h2>Basement Level 2</h2>
-						<p>That's it, time to go back up.</p>
-						<br>
-						<a href="#/2">
-							<img width="178" height="238" data-src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Up arrow" style="transform: rotate(180deg); -webkit-transform: rotate(180deg);">
-						</a>
-					</section>
-				</section>
+        <section>
+          <h2>The Inspiration</h2>
+          <ul>
+              <li class="fragment" data-fragment-index="1">Gherkin<br>
+              <li class="fragment" data-fragment-index="3">lispy</li>
+              <span class="fragment fade-in" data-fragment-index="2">
+                <span class="fragment fade-out" data-fragment-index="3">
+                  <img src="media/mindblown.gif"></img>
+                </span>
+              </span>
+          </ul>
+          <aside class="notes">
+            <ul>
+                <li>I'm going to tell you a personal story about
+                language learning.
+                <li>
+                  <ul>
+                    <li> <span class="next">&gt;&gt;</span> Way back in 2013, Alan Dipert presented this at Clojure/conj
+                    <li>A Lisp implemented in bash <span class="next">&gt;&gt;</span> [mindblown]
+                    <li>This was basically my reaction.
+                    <li>Raised the question for me: what other
+                    non-traditional language could a Lisp be
+                    implemented in?
+                    <li>Had particular language in mind. As far as
+                    I knew, no one had ever written a Lisp using it.
+                    You'll see why in a moment.
+                  </ul>
+                <li><span class="next">&gt;&gt;</span> Lispy: a small and simple Python implementation of
+                a Lisp interpreter by Peter Norvig. I used that as
+                a model.
+            </ul>
+          </aside>
+        </section>
 
-				<section>
-					<h2>Slides</h2>
-					<p>
-						Not a coder? Not a problem. There's a fully-featured visual editor for authoring these, try it out at <a href="http://slides.com" target="_blank">http://slides.com</a>.
-					</p>
-				</section>
+        <section>
+          <section>
+            <h2>Mal Beginnings</h2>
+            <aside class="notes">
+              A bit on how mal began
+              <span class="next">vv</span>
+            </aside>
+          </section>
 
-				<section>
-					<h2>Point of View</h2>
-					<p>
-						Press <strong>ESC</strong> to enter the slide overview.
-					</p>
-					<p>
-						Hold down alt and click on any element to zoom in on it using <a href="http://lab.hakim.se/zoom-js">zoom.js</a>. Alt + click anywhere to zoom back out.
-					</p>
-				</section>
+          <section>
+            <h2>JS</h2>
+            <pre><code class="hljs" data-trim contenteditable>
+...
+function read_form(reader) {
+    var token = reader.peek();
+    switch (token) {
+    // reader macros/transforms
+    case ';': return null; // Ignore comments
+    case '\'': reader.next();
+               return [types._symbol('quote'), read_form(reader)];
+    case '`': reader.next();
+              return [types._symbol('quasiquote'), read_form(reader)];
+    case '~': reader.next();
+              return [types._symbol('unquote'), read_form(reader)];
+...
+            </code></pre>
+            <aside class="notes">
+              First did an implementation in JS to make sure
+              I understood the process well. I had not made a Lisp
+              from scratch before.
+            </aside>
+          </section>
+          <section>
+            <h2 class="fragment" data-fragment-index="1">GNU Make</h2>
+            <pre><code class="hljs" data-trim contenteditable>
+...
+define READ_FORM
+$(and $(READER_DEBUG),$(info READ_FORM: $($(1))))
+$(call READ_SPACES,$(1))
+$(foreach ch,$(word 1,$($(1))),\
+  $(if $(filter $(SEMI),$(ch)),\
+    $(call DROP_UNTIL,$(1),$(_NL)),\
+  $(if $(filter $(SQUOTE),$(ch)),\
+    $(eval $(1) := $(wordlist 2,$(words $($(1))),$($(1))))\
+    $(call _list,$(call _symbol,quote) $(strip $(call READ_FORM,$(1)))),\
+  $(if $(filter $(QQUOTE),$(ch)),\
+    $(eval $(1) := $(wordlist 2,$(words $($(1))),$($(1))))\
+    $(call _list,$(call _symbol,quasiquote) $(strip $(call READ_FORM,$(1)))),\
+  $(if $(filter $(UNQUOTE),$(ch)),\
+...
+            </code></pre>
+            <p class="fragment" class="fragment" data-fragment-index="2">"<font color="green">Ma</font>ke <font color="green">L</font>isp"
+            <aside class="notes">
+              <ul>
+                <li>Here is a sample of the code from the target
+                language that I was inspired to write a Lisp in.
+                Anybody willing to guess what language this example
+                code is written in?
+                <li><span class="next">&gt;&gt;</span> GNU Make. And
+                yes, it's really does work and it's a full
+                implementation.
+                <li><span class="next">SWITCH</span>
+                <li>Demo
+                <pre style="background: #aaa;">
+cd make
+make -f ./mal.mk
+user&gt; ( (fn* [a b] (* a b)) 7 8)
+less mal.mk</pre>
+                <li><span class="next">SWITCH</span> <span
+                    class="next">&gt;&gt;</span> The name "Mal"
+                original "MAke Lisp" because that was all I was really
+                originally intenteding to do. But then I had the
+                thought...
+                <li>Should be at <span class="next">10</span> min mark
+              </ul>
+          </section>
+          <section>
+            <h2>Bash</h2>
+            <pre><code class="bash" data-trim contenteditable>
+...
+READ_FORM () {
+  local token=${__reader_tokens[${__reader_idx}]}
+  case "${token}" in
+    \')   __reader_idx=$(( __reader_idx + 1 ))
+          _symbol quote; local q="${r}"
+          READ_FORM; local f="${r}"
+          _list "${q}" "${f}" ;;
+    \`)   __reader_idx=$(( __reader_idx + 1 ))
+          _symbol quasiquote; local q="${r}"
+          READ_FORM; local f="${r}"
+          _list "${q}" "${f}" ;;
+...
+            </code></pre>
+            <aside class="notes">
+              <ul>
+                <li>My JS and Make Lisp interpreters had a fairly
+                different structure compared to Gherkin. So I decided
+                to try my hand at Bash.
+                <li>Began to see patterns. Started thinking in terms
+                of small digestable chunks, largely due to the fact my
+                life, job and school meant I only had short segments
+                of time to work on it.
+                <li>Often it was at night while working on graduate
+                classes when I would take a 5-10 minute break and work
+                on whatever current mal implementation I happened to
+                have in the pipeline. And I'm not that brilliant so
+                I was forced to make a process that was very gradual
+                and incremental.
+              </ul>
+            </aside>
+          </section>
+          <section>
+            <h2>C</h2>
+            <pre><code class="c" data-trim contenteditable>
+...
+MalVal *read_form(Reader *reader) {
+    char *token;
+    MalVal *form = NULL, *tmp;
+    token = reader_peek(reader);
+    if (!token) { return NULL; }
+    switch (token[0]) {
+    case ';':
+        abort("comments not yet implemented");
+        break;
+    case '\'':
+        reader_next(reader);
+        form = _listX(2, malval_new_symbol("quote"),
+                         read_form(reader));
+        break;
+...
+            </code></pre>
+            <aside class="notes">
+              <ul>
+                <li>First statically typed language. Led to
+                restructuring of the earlier 3 implementations. More
+                patterns became apparent.
+              </ul>
+            </aside>
+          </section>
+          <section>
+            <h2>Python</h2>
+            <pre><code class="python" data-trim contenteditable>
+...
+def read_form(reader):
+    token = reader.peek()
+    # reader macros/transforms
+    if token[0] == ';':
+        reader.next()
+        return None
+    elif token == '\'':
+        reader.next()
+        return _list(_symbol('quote'), read_form(reader))
+    elif token == '`':
+        reader.next()
+        return _list(_symbol('quasiquote'), read_form(reader))
+...
+            </code></pre>
+            <aside class="notes">
+              <ul>
+                <li>Mal had become a fairly different Lisp from Lispy
+                by this point. It modelled it on Clojure's syntax and
+                immutability because that was the Lisp I knew and
+                loved. But since Python was loosely part of the
+                heritage I decided I had to do python too.
+              </ul>
+            </aside>
+          </section>
+          <section>
+            <h2>Clojure</h2>
+            <pre><code class="clojure" data-trim contenteditable>
+...
+;; Override some tools.reader reader macros so that we can do our own
+;; metadata and quasiquote handling
+(alter-var-root #'r/macros
+  (fn [f]
+    (fn [ch]
+      (case ch
+        \` (wrap 'quasiquote)
+        \~ (fn [rdr comma]
+             (if-let [ch (rt/peek-char rdr)]
+               (if (identical? \@ ch)
+                 ((wrap 'splice-unquote) (doto rdr rt/read-char) \@)
+                 ((wrap 'unquote) rdr \~))))
+...
+            </code></pre>
+            <aside class="notes">
+              <ul>
+                <li>And of course, since Mal is a Clojure-like Lisp,
+                I had to do in implementation in Clojure.
+                <li>This was really enlightening in terms of what
+                parts of Mal were really Lisp nature, and which parts
+                were really just incidental complexity due to
+                nature or dificiencies of the target language. And
+                I began to strongly structure the code and the
+                incremental steps to reflect that.
+                <li>However, I should point out that I later realized
+                that the "incidental complexity" is actually one of
+                the most useful aspects of mal, but we'll get to that.
+              </ul>
+            </aside>
+          </section>
 
-				<section>
-					<h2>Touch Optimized</h2>
-					<p>
-						Presentations look great on touch devices, like mobile phones and tablets. Simply swipe through your slides.
-					</p>
-				</section>
+          <section>
+            <h2>PHP</h2>
+            <pre><code class="php" data-trim contenteditable>
+...
+function read_form($reader) {
+    $token = $reader->peek();
+    switch ($token) {
+    case '\'': $reader->next();
+               return _list(_symbol('quote'),
+                               read_form($reader));
+    case '`':  $reader->next();
+               return _list(_symbol('quasiquote'),
+                               read_form($reader));
+    case '~':  $reader->next();
+               return _list(_symbol('unquote'),
+                               read_form($reader));
+...
+            </code></pre>
+          </section>
 
-				<section data-markdown>
-					<script type="text/template">
-						## Markdown support
+          <section>
+            <h2>Java</h2>
+            <pre><code class="java" data-trim contenteditable>
+...
+    public static MalVal read_form(Reader rdr)
+            throws MalContinue, ParseError {
+        String token = rdr.peek();
+        if (token == null) { throw new MalContinue(); }
+        MalVal form;
 
-						Write content using inline or external Markdown.
-						Instructions and more info available in the [readme](https://github.com/hakimel/reveal.js#markdown).
+        switch (token.charAt(0)) {
+            case '\'': rdr.next();
+                       return new MalList(new MalSymbol("quote"),
+                                          read_form(rdr));
+            case '`': rdr.next();
+                      return new MalList(new MalSymbol("quasiquote"),
+                                         read_form(rdr));
+...
+            </code></pre>
+          </section>
+        </section>
 
-						```
-						<section data-markdown>
-						  ## Markdown support
+        <section>
+          <h2>An Accidental Discovery</h2>
+          <p class="fragment">"<font color="green">Ma</font>ke <font color="green">L</font>isp" became "<font color="green">M</font>ake-<font color="green">A</font>-<font color="green">L</font>isp"
+          <aside class="notes">
+            <ul>
+              <li>At some point I began to realize that Mal had become
+              a very useful personal learning tool. I was able to
+              learn new languages more quickly and to a greater depth
+              than any other process I had used before.
+              <li><span class="next">&gt;&gt;</span> And so Make Lisp
+              became Make-A-Lisp
+              <li>But before we switch gears and focus on the language
+              learning aspects of the make-a-lisp process, let's
+              take brief look at mal the language along with a couple
+              of implementations.
+            </ul>
+          </aside>
+        </section>
 
-						  Write content using inline or external Markdown.
-						  Instructions and more info available in the [readme](https://github.com/hakimel/reveal.js#markdown).
-						</section>
-						```
-					</script>
-				</section>
+        <section>
+          <h2>Mal Itself</h2>
+          <p>Demo Time</p>
+          <img class="fragment" src="media/surprised-baby.gif"></img>
+          <aside class="notes">
+            <font size="1em">
+            <ul>
+              <li>Should be at <span class="next">15</span> min mark
+              <li><span class="next">SWITCH</span>
+              <li>Let's start with a hello world mal program:
+<pre style="margin: 0px; background: #aaa;">
+cd ../python
+cat ../mal/hello.py</pre>
+              <li>but let's run it with the python implementation:
+<pre style="margin: 0px; background: #aaa;">
+./mal.py ../mal/hello.py</pre>
+              <li>Let's try something a bit more interesting but this
+              time using the bash implementation:
+<pre style="margin: 0px; background: #aaa;">
+cd ../bash
+./mal.sh ../mal/clojurewest2014.mal</pre>
+              <li>That's a presentation for a lightning talke I did on
+              mal at Clojure West.
+<pre style="margin: 0px; background: #aaa;">
+less ../mal/clojurewest2014.mal</pre>
+              <li>That's all well and good, but let's bump it up
+              a notch or three:
+<pre style="margin: 0px; background: #aaa;">
+cd ../js
+./mal.js ../mal/mal.mal</pre>
+              <li>I'll just pause for a second to let you stew on
+              that.
+              <li>Yes, that's the mal implementation of mal
 
-				<section>
-					<section id="fragments">
-						<h2>Fragments</h2>
-						<p>Hit the next arrow...</p>
-						<p class="fragment">... to step through ...</p>
-						<p><span class="fragment">... a</span> <span class="fragment">fragmented</span> <span class="fragment">slide.</span></p>
+              <li><span class="next">SWITCH</span>[show gif]
+              <li>This was basically my reaction at the moment when
+              mal became self-hosting.
+              <li><span class="next">SWITCH</span>
+<pre style="margin: 0px; background: #aaa;">
+less ../mal/mal.mal
+</pre>
+              <li>More specifically, that's the JavaScript
+              implementation of mal being used to run an
+              implementation of mal that is written in the mal
+              language itself
+              <li>Self-hosting is the term for an interpreter or
+              compiler that is written in it's own language.
+<!--
+<pre style="margin: 0px; background: #aaa;">
+less ../mal/mal.mal</pre>
+              <li>And of course we can do this:
+<pre style="margin: 0px; background: #aaa;">
+./mal.js ../mal/mal.mal ../mal/hello.mal</pre>
+              <li>It's much slower, but it works the same
+-->
+            </ul>
+            </font>
+          </aside>
+        </section>
 
-						<aside class="notes">
-							This slide has fragments which are also stepped through in the notes window.
-						</aside>
-					</section>
-					<section>
-						<h2>Fragment Styles</h2>
-						<p>There's different types of fragments, like:</p>
-						<p class="fragment grow">grow</p>
-						<p class="fragment shrink">shrink</p>
-						<p class="fragment fade-out">fade-out</p>
-						<p class="fragment current-visible">current-visible</p>
-						<p class="fragment highlight-red">highlight-red</p>
-						<p class="fragment highlight-blue">highlight-blue</p>
-					</section>
-				</section>
+        <section>
+          <section>
+            <h2>Mal and More Mal</h2>
+          </section>
+          <section>
+            <h2>PostScript</h2>
+            <pre><code class="prolog" data-trim contenteditable>
+...
+% read_form: read the next form from string start at idx
+/read_form { 3 dict begin
+    read_spaces
+    /idx exch def
+    /str exch def
 
-				<section id="transitions">
-					<h2>Transition Styles</h2>
-					<p>
-						You can select from different transitions, like: <br>
-						<a href="?transition=none#/transitions">None</a> -
-						<a href="?transition=fade#/transitions">Fade</a> -
-						<a href="?transition=slide#/transitions">Slide</a> -
-						<a href="?transition=convex#/transitions">Convex</a> -
-						<a href="?transition=concave#/transitions">Concave</a> -
-						<a href="?transition=zoom#/transitions">Zoom</a>
-					</p>
-				</section>
+    idx str length ge { null str idx }{ %if EOF
 
-				<section id="themes">
-					<h2>Themes</h2>
-					<p>
-						reveal.js comes with a few themes built in: <br>
-						<!-- Hacks to swap themes after the page has loaded. Not flexible and only intended for the reveal.js demo deck. -->
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/black.css'); return false;">Black (default)</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/white.css'); return false;">White</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/league.css'); return false;">League</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/sky.css'); return false;">Sky</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/beige.css'); return false;">Beige</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/simple.css'); return false;">Simple</a> <br>
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/serif.css'); return false;">Serif</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/blood.css'); return false;">Blood</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/night.css'); return false;">Night</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/moon.css'); return false;">Moon</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/solarized.css'); return false;">Solarized</a>
-					</p>
-				</section>
+    /ch str idx get def  % current character
+    ch 39 eq { %if '\''
+        /idx idx 1 add def
+        str idx read_form
+        3 -1 roll   /quote exch 2 _list   3 1 roll
+...
+            </code></pre>
+          <aside class="notes">
+            <p>Yes, Postscript the typesetting language.</p>
+            <p>After my lightning talk at Clojure West somebody
+            suggested Postscript and so I took up the challenge.</p>
+            <p>I had never written a line of code in
+            a stack-based/concatenative language like Postscript</p>
+            <p>More challenging than most, not as difficult as GNU
+            Make</p>
+          </aside>
+          </section>
 
-				<section>
-					<section data-background="#dddddd">
-						<h2>Slide Backgrounds</h2>
-						<p>
-							Set <code>data-background="#dddddd"</code> on a slide to change the background color. All CSS color formats are supported.
-						</p>
-						<a href="#" class="navigate-down">
-							<img width="178" height="238" data-src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Down arrow">
-						</a>
-					</section>
-					<section data-background="https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png">
-						<h2>Image Backgrounds</h2>
-						<pre><code class="hljs">&lt;section data-background="image.png"&gt;</code></pre>
-					</section>
-					<section data-background="https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png" data-background-repeat="repeat" data-background-size="100px">
-						<h2>Tiled Backgrounds</h2>
-						<pre><code class="hljs" style="word-wrap: break-word;">&lt;section data-background="image.png" data-background-repeat="repeat" data-background-size="100px"&gt;</code></pre>
-					</section>
-					<section data-background-video="https://s3.amazonaws.com/static.slid.es/site/homepage/v1/homepage-video-editor.mp4,https://s3.amazonaws.com/static.slid.es/site/homepage/v1/homepage-video-editor.webm" data-background-color="#000000">
-						<div style="background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px;">
-							<h2>Video Backgrounds</h2>
-							<pre><code class="hljs" style="word-wrap: break-word;">&lt;section data-background-video="video.mp4,video.webm"&gt;</code></pre>
-						</div>
-					</section>
-					<section data-background="http://i.giphy.com/90F8aUepslB84.gif">
-						<h2>... and GIFs!</h2>
-					</section>
-				</section>
+          <section>
+            <h2>C#</h2>
+            <pre><code class="csharp" data-trim contenteditable>
+...
+        public static MalVal read_form(Reader rdr) {
+            string token = rdr.peek();
+            if (token == null) { throw new MalContinue(); }
+            MalVal form = null;
 
-				<section data-transition="slide" data-background="#4d7e65" data-background-transition="zoom">
-					<h2>Background Transitions</h2>
-					<p>
-						Different background transitions are available via the backgroundTransition option. This one's called "zoom".
-					</p>
-					<pre><code class="hljs">Reveal.configure({ backgroundTransition: 'zoom' })</code></pre>
-				</section>
+            switch (token) {
+                case "'": rdr.next();
+                    return new MalList(new MalSymbol("quote"),
+                                       read_form(rdr));
+                case "`": rdr.next();
+                    return new MalList(new MalSymbol("quasiquote"),
+                                       read_form(rdr));
+...
+            </code></pre>
+          </section>
 
-				<section data-transition="slide" data-background="#b5533c" data-background-transition="zoom">
-					<h2>Background Transitions</h2>
-					<p>
-						You can override background transitions per-slide.
-					</p>
-					<pre><code class="hljs" style="word-wrap: break-word;">&lt;section data-background-transition="zoom"&gt;</code></pre>
-				</section>
+          <section>
+            <h2>Ruby</h2>
+            <pre><code class="ruby" data-trim contenteditable>
+...
+def read_form(rdr)
+    return case rdr.peek
+        when ";" then  nil
+        when "'" then  rdr.next; List.new [:quote, read_form(rdr)]
+        when "`" then  rdr.next; List.new [:quasiquote, read_form(rdr)]
+        when "~" then  rdr.next; List.new [:unquote, read_form(rdr)]
+        when "~@" then rdr.next; List.new [:"splice-unquote", read_form(rdr)]
+        when "^" then  rdr.next; meta = read_form(rdr);
+                       List.new [:"with-meta", read_form(rdr), meta]
+...
+            </code></pre>
+          </section>
 
-				<section>
-					<h2>Pretty Code</h2>
-					<pre><code class="hljs" data-trim contenteditable>
-function linkify( selector ) {
-  if( supports3DTransforms ) {
+          <section>
+            <h2>Perl</h2>
+            <pre><code class="perl" data-trim contenteditable>
+...
+sub read_form {
+    my($rdr) = @_;
+    my $token = $rdr->peek();
+    given ($token) {
+        when("'") { $rdr->next(); List->new([Symbol->new('quote'),
+                                             read_form($rdr)]) }
+        when('`') { $rdr->next(); List->new([Symbol->new('quasiquote'),
+                                             read_form($rdr)]) }
+        when('~') { $rdr->next(); List->new([Symbol->new('unquote'),
+                                             read_form($rdr)]) }
+...
+            </code></pre>
+          </section>
 
-    var nodes = document.querySelectorAll( selector );
+          <section>
+            <h2>Go</h2>
+            <pre><code class="golang" data-trim contenteditable>
+...
+func read_form(rdr Reader) (MalType, error) {
+        token := rdr.peek()
+        if token == nil {
+                return nil, errors.New("read_form underflow")
+        }
+        switch *token {
+        case `'`:
+                rdr.next()
+                form, e := read_form(rdr)
+                if e != nil {
+                        return nil, e
+                }
+                return List{[]MalType{Symbol{"quote"}, form}, nil}, nil
+...
+            </code></pre>
+          </section>
 
-    for( var i = 0, len = nodes.length; i &lt; len; i++ ) {
-      var node = nodes[i];
+          <section>
+            <h2>Rust</h2>
+            <pre><code class="rust" data-trim contenteditable>
+...
+fn read_form(rdr : &mut Reader) -> MalRet {
+    let otoken = rdr.peek();
+    let stoken = otoken.unwrap();
+    let token = &stoken[..];
+    match token {
+        "'" => {
+            let _ = rdr.next();
+            match read_form(rdr) {
+                Ok(f) => Ok(list(vec![symbol("quote"), f])),
+                Err(e) => Err(e),
+            }
+        },
+...
+            </code></pre>
+            <aside class="notes">
+              <p>More challenging then average, but it's a very
+              interesting language</p>
+            </aside>
+          </section>
 
-      if( !node.className ) {
-        node.className += ' roll';
-      }
-    }
-  }
-}
-					</code></pre>
-					<p>Code syntax highlighting courtesy of <a href="http://softwaremaniacs.org/soft/highlight/en/description/">highlight.js</a>.</p>
-				</section>
+          <section>
+            <h2>R</h2>
+            <pre><code class="r" data-trim contenteditable>
+...
+read_form &lt;- function(rdr) {
+    token &lt;- Reader.peek(rdr)
+    if (token == "'") {
+        . &lt;- Reader.next(rdr);
+        new.list(new.symbol("quote"), read_form(rdr))
+    } else if (token == "`") {
+        . &lt;- Reader.next(rdr);
+        new.list(new.symbol("quasiquote"), read_form(rdr))
+    } else if (token == "~") {
+        . &lt;- Reader.next(rdr);
+        new.list(new.symbol("unquote"), read_form(rdr))
+...
+            </code></pre>
+          </section>
 
-				<section>
-					<h2>Marvelous List</h2>
-					<ul>
-						<li>No order here</li>
-						<li>Or here</li>
-						<li>Or here</li>
-						<li>Or here</li>
-					</ul>
-				</section>
+          <section>
+            <h2>CoffeeScript</h2>
+            <pre><code class="coffeescript" data-trim contenteditable>
+...
+read_form = (rdr) ->
+  token = rdr.peek()
+  switch token
+    when '\'' then [_symbol('quote'), read_form(rdr.skip())]
+    when '`'  then [_symbol('quasiquote'), read_form(rdr.skip())]
+    when '~'  then [_symbol('unquote'), read_form(rdr.skip())]
+    when '~@' then [_symbol('splice-unquote'), read_form(rdr.skip())]
+    when '^'
+      meta = read_form(rdr.skip())
+      [_symbol('with-meta'), read_form(rdr), meta]
+    when '@' then [_symbol('deref'), read_form(rdr.skip())]
+...
+            </code></pre>
+          </section>
 
-				<section>
-					<h2>Fantastic Ordered List</h2>
-					<ol>
-						<li>One is smaller than...</li>
-						<li>Two is smaller than...</li>
-						<li>Three!</li>
-					</ol>
-				</section>
+          <section>
+            <h2>VB.NET</h2>
+            <pre><code class="vbnet" data-trim contenteditable>
+...
+        Shared Function read_form(rdr As Reader) As MalVal
+            Dim token As String = rdr.peek()
+            If token Is Nothing Then
+                throw New MalContinue()
+            End If
+            Dim form As MalVal = Nothing
 
-				<section>
-					<h2>Tabular Tables</h2>
-					<table>
-						<thead>
-							<tr>
-								<th>Item</th>
-								<th>Value</th>
-								<th>Quantity</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>Apples</td>
-								<td>$1</td>
-								<td>7</td>
-							</tr>
-							<tr>
-								<td>Lemonade</td>
-								<td>$2</td>
-								<td>18</td>
-							</tr>
-							<tr>
-								<td>Bread</td>
-								<td>$3</td>
-								<td>2</td>
-							</tr>
-						</tbody>
-					</table>
-				</section>
+            Select token
+            Case "'"
+                rdr.get_next()
+                return New MalList(New MalSymbol("quote"),
+                                   read_form(rdr))
+...
+            </code></pre>
+          </section>
 
-				<section>
-					<h2>Clever Quotes</h2>
-					<p>
-						These guys come in two forms, inline: <q cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
-						&ldquo;The nice thing about standards is that there are so many to choose from&rdquo;</q> and block:
-					</p>
-					<blockquote cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
-						&ldquo;For years there has been a theory that millions of monkeys typing at random on millions of typewriters would
-						reproduce the entire works of Shakespeare. The Internet has proven this theory to be untrue.&rdquo;
-					</blockquote>
-				</section>
+          <section>
+            <h2>Scala</h2>
+            <pre><code class="scala" data-trim contenteditable>
+...
+  def read_form(rdr: Reader): Any = {
+    return rdr.peek() match {
+      case "'"  => { rdr.next; _list(Symbol("quote"), read_form(rdr)) }
+      case "`"  => { rdr.next; _list(Symbol("quasiquote"), read_form(rdr)) }
+      case "~"  => { rdr.next; _list(Symbol("unquote"), read_form(rdr)) }
+      case "~@" => { rdr.next; _list(Symbol("splice-unquote"), read_form(rdr)) }
+      case "^"  => { rdr.next; val meta = read_form(rdr);
+                     _list(Symbol("with-meta"), read_form(rdr), meta) }
+      case "@"  => { rdr.next; _list(Symbol("deref"), read_form(rdr)) }
+...
+            </code></pre>
+          </section>
 
-				<section>
-					<h2>Intergalactic Interconnections</h2>
-					<p>
-						You can link between slides internally,
-						<a href="#/2/3">like this</a>.
-					</p>
-				</section>
+          <section>
+            <h2>Haskell</h2>
+            <pre><code class="haskell" data-trim contenteditable>
+...
+read_form :: Parser MalVal
+read_form =  do
+    ignored
+    x &lt;- read_macro
+     &lt;|> read_list
+     &lt;|> read_vector
+     &lt;|> read_hash_map
+     &lt;|> read_atom
+    return $ x
 
-				<section>
-					<h2>Speaker View</h2>
-					<p>There's a <a href="https://github.com/hakimel/reveal.js#speaker-notes">speaker view</a>. It includes a timer, preview of the upcoming slide as well as your speaker notes.</p>
-					<p>Press the <em>S</em> key to try it out.</p>
+read_str :: String -> IOThrows MalVal
+read_str str = case parse read_form "Mal" str of
+...
+            </code></pre>
+          </section>
 
-					<aside class="notes">
-						Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you open the speaker notes window (hit 's' on your keyboard).
-					</aside>
-				</section>
+          <section>
+            <h2>Racket</h2>
+            <pre><code class="scheme" data-trim contenteditable>
+...
+(define (read_form rdr)
+  (let ([token (send rdr peek)])
+    (if (null? token)
+      (raise (make-blank-exn "blank line" (current-continuation-marks)))
+      (cond
+        [(equal? "'" token) (send rdr next) (list 'quote (read_form rdr))]
+        [(equal? "`" token) (send rdr next) (list 'quasiquote (read_form rdr))]
+        [(equal? "~" token) (send rdr next) (list 'unquote (read_form rdr))]
+        [(equal? "~@" token) (send rdr next) (list 'splice-unquote (read_form rdr))]
+        [(equal? "^" token) (send rdr next)
+                            (let ([meta (read_form rdr)])
+                              (list 'with-meta (read_form rdr) meta))]
+...
+            </code></pre>
+          </section>
 
-				<section>
-					<h2>Export to PDF</h2>
-					<p>Presentations can be <a href="https://github.com/hakimel/reveal.js#pdf-export">exported to PDF</a>, here's an example:</p>
-					<iframe src="https://www.slideshare.net/slideshow/embed_code/42840540" width="445" height="355" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:3px solid #666; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
-				</section>
+          <section>
+            <h2>Lua</h2>
+            <pre><code class="lua" data-trim contenteditable>
+...
+function M.read_form(rdr)
+    local token = rdr:peek()
 
-				<section>
-					<h2>Global State</h2>
-					<p>
-						Set <code>data-state="something"</code> on a slide and <code>"something"</code>
-						will be added as a class to the document element when the slide is open. This lets you
-						apply broader style changes, like switching the page background.
-					</p>
-				</section>
+    if "'" == token then
+        rdr:next()
+        return List:new({Symbol:new('quote'), M.read_form(rdr)})
+    elseif '`' == token then
+        rdr:next()
+        return List:new({Symbol:new('quasiquote'), M.read_form(rdr)})
+    elseif '~' == token then
+        rdr:next()
+        return List:new({Symbol:new('unquote'), M.read_form(rdr)})
+...
+            </code></pre>
+          </section>
 
-				<section data-state="customevent">
-					<h2>State Events</h2>
-					<p>
-						Additionally custom events can be triggered on a per slide basis by binding to the <code>data-state</code> name.
-					</p>
-					<pre><code class="javascript" data-trim contenteditable style="font-size: 18px;">
-Reveal.addEventListener( 'customevent', function() {
-	console.log( '"customevent" has fired' );
-} );
-					</code></pre>
-				</section>
+          <section>
+            <h2><font color="green">OCaml</font></h2>
+            <pre><code class="ocaml" data-trim contenteditable>
+...
+and read_form all_tokens =
+  match all_tokens with
+    | [] -> raise End_of_file;
+    | token :: tokens ->
+      match token with
+        | "'"  -> read_quote "quote" tokens
+        | "`"  -> read_quote "quasiquote" tokens
+        | "~"  -> read_quote "unquote" tokens
+        | "~@" -> read_quote "splice-unquote" tokens
+        | "@"  -> read_quote "deref" tokens
+...
+            </code></pre>
+            <aside class="notes">
+              <ul>
+                <li>OCaml was implementation #23
+                <li>But there was a critical difference about the
+                OCaml implementation: it was created by someone else.
+                chouser (a friend and colleague who also wrote the
+                book "The Joy of Clojure")
+                <li>Marked a new era for mal (Jan 2015). The beginning
+                of a step-by-step guide. Other people have created
+                more implementations that I have since then.
+                <li>Mal and make-a-lisp was no longer just my pet
+                project.
+                <li>Should be at <span class="next">20</span> min mark
+              </ul>
+            </aside>
+          </section>
+        </section>
 
-				<section>
-					<h2>Take a Moment</h2>
-					<p>
-						Press B or . on your keyboard to pause the presentation. This is helpful when you're on stage and want to take distracting slides off the screen.
-					</p>
-				</section>
+        <section data-background="#ffffff">
+          <h3>Mal Today</h3>
+          <img class="fragment" src="media/language_montage.png"
+               width="80%" style="box-shadow: none;"></img>
+          <aside class="notes">
+            <ul>
+              <li>Which bring us to today. <span class="next">&gt;&gt;</span>
+              <li>There are now 42 implementations.
+              <li>14 of the last 20 were created by others. And of the
+              six I created many were either variations of exisiting
+              implementations (like ES6 and rpython) or to learn
+              a language for one of my PhD classes (like MATLAB) [or
+              experiment with a language idea for work (miniMAL)].
+              <li>The past 12 months have averaged more than
+              2 implementations per month.
+              <li>At this point you might be asking yourself "Why"?
+              Why did a bunch of people go through the work to do
+              this?
+              <li>The answer is actually really simple: because it was
+              fun! And not just fun, but addictive fun.
+            </ul>
+          </aside>
+        </section>
 
-				<section>
-					<h2>Much more</h2>
-					<ul>
-						<li>Right-to-left support</li>
-						<li><a href="https://github.com/hakimel/reveal.js#api">Extensive JavaScript API</a></li>
-						<li><a href="https://github.com/hakimel/reveal.js#auto-sliding">Auto-progression</a></li>
-						<li><a href="https://github.com/hakimel/reveal.js#parallax-background">Parallax backgrounds</a></li>
-						<li><a href="https://github.com/hakimel/reveal.js#keyboard-bindings">Custom keyboard bindings</a></li>
-					</ul>
-				</section>
+        <section data-background="#ffffff" data-transition="none">
+          <h3>The Steps</h3>
+          <aside class="notes">
+            <ul>
+              <li>Lorem ipsum. <span class="next">&gt;&gt;</span>
+            </ul>
+          </aside>
+        </section>
 
-				<section style="text-align: left;">
-					<h1>THE END</h1>
-					<p>
-						- <a href="http://slides.com">Try the online editor</a> <br>
-						- <a href="https://github.com/hakimel/reveal.js">Source code &amp; documentation</a>
-					</p>
-				</section>
+        <section data-background="#ffffff" data-transition="none">
+          <h4>Step 0 - Read/Eval/Print Loop</h4>
+          <img src="media/step0_repl.png"
+               width="80%" style="box-shadow: none;"></img>
+          <aside class="notes">
+            <ul>
+             <li>Input and Output
+              <li>Lorem ipsum. <span class="next">&gt;&gt;</span>
+            </ul>
+          </aside>
+        </section>
 
-			</div>
+        <section data-background="#ffffff" data-transition="none">
+          <h4>Step 1 - Reader & Printer</h4>
+          <img src="media/step1_read_print.png"
+               width="80%" style="box-shadow: none;"></img>
+          <aside class="notes">
+            <ul>
+              <li>Syntax Checker
+              <li>Lorem ipsum. <span class="next">&gt;&gt;</span>
+            </ul>
+          </aside>
+        </section>
 
-		</div>
+        <section data-background="#ffffff" data-transition="none">
+          <h4>Step 2 - Expression Evaluation</h4>
+          <img src="media/step2_eval.png"
+               width="80%" style="box-shadow: none;"></img>
+          <aside class="notes">
+            <ul>
+              <li>Simple Calculator
+              <li>Lorem ipsum. <span class="next">&gt;&gt;</span>
+            </ul>
+          </aside>
+        </section>
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.js"></script>
+        <section data-background="#ffffff" data-transition="none">
+          <h4>Step 3 - Lexical Environments</h4>
+          <img src="media/step3_env.png"
+               width="80%" style="box-shadow: none;"></img>
+          <aside class="notes">
+            <ul>
+              <li>Calculator with Memory
+              <li>Lorem ipsum. <span class="next">&gt;&gt;</span>
+            </ul>
+          </aside>
+        </section>
 
-		<script>
+        <section data-background="#ffffff" data-transition="none">
+          <h4>Step 4 - Conditionals, Closures & Side-Effects</h4>
+          <img src="media/step4_if_fn_do.png"
+               width="80%" style="box-shadow: none;"></img>
+          <aside class="notes">
+            <ul>
+              <li>Barely Lisp
+              <li>Lorem ipsum. <span class="next">&gt;&gt;</span>
+            </ul>
+          </aside>
+        </section>
 
-			// Full list of configuration options available at:
-			// https://github.com/hakimel/reveal.js#configuration
-			Reveal.initialize({
-				controls: true,
-				progress: true,
-				history: true,
-				center: true,
+        <section data-background="#ffffff" data-transition="none">
+          <h4>Step 5 - Tail-Call Optimization</h4>
+          <img src="media/step5_tco.png"
+               width="80%" style="box-shadow: none;"></img>
+          <aside class="notes">
+            <ul>
+              <li>More Efficient Lisp
+              <li>Lorem ipsum. <span class="next">&gt;&gt;</span>
+            </ul>
+          </aside>
+        </section>
 
-				transition: 'slide', // none/fade/slide/convex/concave/zoom
+        <section data-background="#ffffff" data-transition="none">
+          <h4>Step 6 - Files, Atoms, Arguments & Eval</h4>
+          <img src="media/step6_file.png"
+               width="80%" style="box-shadow: none;"></img>
+          <aside class="notes">
+            <ul>
+              <li>Meta-circular Evaluator
+              <li>Lorem ipsum. <span class="next">&gt;&gt;</span>
+            </ul>
+          </aside>
+        </section>
 
-				// Optional reveal.js plugins
-				dependencies: [
-					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
-					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
-					{ src: 'plugin/zoom-js/zoom.js', async: true },
-					{ src: 'plugin/notes/notes.js', async: true }
-				]
-			});
+        <section data-background="#ffffff" data-transition="none">
+          <h4>Step 7 - Quote & Quasiquote</h4>
+          <img src="media/step7_quote.png"
+               width="80%" style="box-shadow: none;"></img>
+          <aside class="notes">
+            <ul>
+              <li>A Touch of Meta-Programming
+              <li>Lorem ipsum. <span class="next">&gt;&gt;</span>
+            </ul>
+          </aside>
+        </section>
 
-		</script>
+        <section data-background="#ffffff" data-transition="none">
+          <h4>Step 8 - Macros</h4>
+          <img src="media/step8_macros.png"
+               width="80%" style="box-shadow: none;"></img>
+          <aside class="notes">
+            <ul>
+              <li>Meta-Programming Realized
+              <li>Lorem ipsum. <span class="next">&gt;&gt;</span>
+            </ul>
+          </aside>
+        </section>
 
-	</body>
+        <section data-background="#ffffff" data-transition="none">
+          <h4>Step 9 - Exception Handling</h4>
+          <img src="media/step9_try.png"
+               width="80%" style="box-shadow: none;"></img>
+          <aside class="notes">
+            <ul>
+              <li>Try and Try Again
+              <li>Lorem ipsum. <span class="next">&gt;&gt;</span>
+            </ul>
+          </aside>
+        </section>
+
+        <section data-background="#ffffff" data-transition="none">
+          <h4>Step A - Mal</h4>
+          <img src="media/stepA_mal.png"
+               width="80%" style="box-shadow: none;"></img>
+          <aside class="notes">
+            <ul>
+              <li>Mal in Mal
+              <li>Lorem ipsum. <span class="next">&gt;&gt;</span>
+            </ul>
+          </aside>
+        </section>
+
+
+        <section>
+          <h2>Questions?</h2>
+          <div class="fragment">
+          <hr>
+          <ul>
+            <li><a href="https://github.com/kanaka/mal">https://github.com/kanaka/mal</a>
+            <li><a href="https://github.com/kanaka/lambdaconf">https://github.com/kanaka/lambdaconf</a>
+            <li><span style="color: green">#mal</span> (freenode)
+            <li><a href="http://twitter.com/bus_kanaka">@bus_kanaka</a>
+            <li><a href="viasat.com">viasat.com</a>
+          </ul>
+          </div>
+          <aside class="notes">
+            <ul>
+              <li><span class="next">&gt;&gt;</span> I'll also put up
+              some reference links while I take questions.
+            </ul>
+          </aside>
+        </section>
+
+        <section>
+          <h2>Extra Material</h2>
+        </section>
+
+        <section data-background="#ffffff">
+          <img src="media/language_graph.png"
+               width="70%" style="box-shadow: none;"></img>
+        </section>
+
+        <section>
+          <h2>New Implementation Ideas</h2>
+          <font size=5em>
+          <span style="padding: 50px">
+          <ul>
+            <li>Something old
+            <ul>
+              <li>Fortran
+              <li>COBOL
+              <li>Pascal
+              <li>Ada
+              <li>Assembly
+            </ul>
+          </ul>
+          </span>
+          <span style="padding: 50px">
+          <ul>
+            <li>Something new
+            <ul>
+              <li>Idris
+              <li>Io
+              <li>Dart
+              <li>Elm
+              <li>TypeScript
+            </ul>
+          </ul>
+          </span>
+
+          <br><br>
+
+          <span style="padding: 50px">
+          <ul>
+            <li>Something borrowed<br>(from another domain)
+            <ul>
+              <li>TeX
+              <li>PL/SQL
+              <li>Prolog
+              <li>Verilog / VHDL
+            </ul>
+          </ul>
+          </span>
+          <span style="padding: 50px">
+          <ul>
+            <li>Something blue<br>(corporate/government)
+            <ul>
+              <li>Objective-C
+              <li>PowerShell
+              <li>ColdFusion
+              <li>MUMPS (OpenM)
+            </ul>
+          </ul>
+          </font>
+          </span>
+        </section>
+      </div>
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+
+    <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'plugin/zoom-js/zoom.js', async: true },
+          { src: 'plugin/notes/notes.js', async: true }
+        ]
+      });
+
+    </script>
+
+  </body>
 </html>
