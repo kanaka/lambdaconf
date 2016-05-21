@@ -1,0 +1,73 @@
+<html>
+<style>
+.next {
+    color: red;
+}
+.notes {
+    border: 1px solid black;
+}
+</style>
+<body>
+            <aside class="notes">
+              <ul>
+                <li>show step2 vs step3 diagram
+                <li>cp step2_eval.py to step3_env.py
+                <li>Create env.py
+                  <ul>
+                    <li>hierarchical hash-map/dictionary data
+                    <li>three functions: set, find, get (add stubs)
+                    <li>describe each function
+                  </ul>
+              </ul>
+            </aside>
+
+            <aside class="notes">
+              <ul>
+                <li>Step 3 Hands-On Part 1 (Env)
+                  <ul>
+                    <li>implement env/env functions
+                    <li>use Env to define repl_env in step3_env.py
+                  </ul>
+                <li>Finish basic env.EXT
+                  <ul>
+                    <li>set
+                    <li>find
+                    <li>get
+                    <li>change repl_env to use Env
+                    <li>change eval_ast symbol lookup to use Env
+                      <ul>
+                        <li>in python, Symbol can automatically be hash-map key
+                          <ul>
+                            <li>in JS need to use value of the key symbol instead of key
+                            itself when setting looking up in the data hash-map
+                          </ul>
+                      </ul>
+                  </ul>
+                <li>First special forms:
+                  <ul>
+                    <li>functionality unchanged, but sets groundwork for what's next
+                    <li>all apply current does is invoke functions, but it's also
+                      where special forms are handled, i.e. custom evaluation
+                      rules and what you might call additional language syntax
+                    <li>a0 and switch with stubs for def!, let*, else
+                    <li>Show diagram and code example of def!
+                    <li>Show digram and code example of let*
+                  </ul>
+              </ul>
+            </aside>
+
+            <aside class="notes">
+              <ul>
+                <li>Step 3 Hands-On Part 2 (def!, let*)
+                <li>Finish def!, let*
+                <li>Show example of def! and let*
+                <li>Run tests
+                  <ul>
+                    <li>notice embedded let* with let*
+                  </ul>
+                <li>Result: a calculator with memory
+              </ul>
+            </aside>
+
+</body>
+</html>

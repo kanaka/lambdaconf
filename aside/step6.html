@@ -1,0 +1,128 @@
+<html>
+<style>
+.next {
+    color: red;
+}
+.notes {
+    border: 1px solid black;
+}
+</style>
+<body>
+            <aside class="notes">
+              <ul>
+                <li>show step5 vs step6 diagram
+                  <ul>
+                    <li>fill some gaps in our language
+                    <li>add core meta-evaluator function
+                    <li>leverage that plus additional core function sufficient for
+                        being able to load and evaluate another mal program
+                    <li>add a new mal type that allows state change over time (i.e.
+                        mutation) and core functions related to that
+                  </ul>
+                <li>cp step5_tco.js to step6_file.js
+                <li>Walkthrough new core functions (read-string, slurp, atoms)
+                <li>Add stubs for eval, load-file, and if args condition
+                  <ul>
+                    <li>eval will call EVAL on the argument using repl_env
+                    <li>load-file should use slurp/read-string/eval to load and
+                        execute a file
+                      <ul>
+                        <li>Note that load-file should support loading files with
+                            multiple top-level forms (i.e. not surrounded by a do
+                            form)
+                      </ul>
+                    <li>Implement script loading using load-file
+                  </ul>
+              </ul>
+            </aside>
+
+            <aside class="notes">
+              <ul>
+                <li>Step 6 Hands-On
+                <li>Implement:
+                  <ul>
+                    <li>*ARGV*
+                    <li>eval
+                      <ul>
+                        <li>(eval 123)
+                        <li>(eval (list + 2 3))
+                        <li>eval in most languages is exciting and scary, but in
+                            Lisp it almost seems mundane
+                      </ul>
+                    <li>load-file
+                      <ul>
+                        <li>let's tie it al together
+                        <li>:r ../lf.txt
+                        <li>explain (inside out)
+                        <li>(load-file "../tests/incA.mal")
+                      </ul>
+                    <li>if args
+                  </ul>
+                <li>Result: A Lisp scripting language
+              </ul>
+            </aside>
+
+            <aside class="notes">
+              <ul>
+                <li>Skip steps 7-9 for hands-on, but I'll discuss towards the end
+                <li>cp step6_file.rb to stepA_mal.rb
+                  <ul>
+                    <li>Couple of extras to make our language work more like
+                      a typical REPL:
+                      <ul>
+                        <li>Implement *host-language* and header print
+                            :r ../header.txt
+                      </ul>
+                  </ul>
+                <li>The mal code we've seen so far is fairly trivial; one-liners for
+                  the most part. So let's change that.
+                  <ul>
+                    <li>show mal6/step1_read_print.mal
+                    <li>I'll give you a minute to chew on that.
+                    <li>Should have enough exposure to mal to be able to deduce what
+                      it is that you're looking at.
+                    <li>somebody toss out what this is
+                    <li>implementation of mal step1, in mal itself
+                  </ul>
+                <li>Implement readline
+                  <ul>
+                    <li>Only additional thing needed to run the mal implementation
+                      of step1 is readline
+                  </ul>
+                <li>Run ruby stepA_mal.rb ../mal6/step1_read_print.mal
+                  <ul>
+                    <li>mal-user&gt;
+                      <ul>
+                        <li>prompt not coming from our ruby mal but rather from our
+                          mal mal.
+                      </ul>
+                    <li>Inception top picture
+                      <ul>
+                        <li>Starting to feel like you need one of these?
+                        <li>I think it's important to try and conceptualize what's
+                          going on.
+                      </ul>
+                    <li>Self-hosting diagram? (TODO)
+                  </ul>
+                <li>Show mal6/step6_file.mal (brief overview)
+                <li>core stubs for: throw, symbol?, readline, apply
+              </ul>
+            </aside>
+
+            <aside class="notes">
+              <ul>
+                <li>Step 6++ Hands-On
+                <li>Implement throw, symbol?, readline, apply
+                  <ul>
+                    <li>apply: 
+                      <ul>
+                        <li>python, ruby, JS specifics with closures
+                      </ul>
+                    <li>run: ruby stepA_mal.rb ../mal6/step6_file.mal
+                    <li>run: ruby stepA_mal.rb ../mal6/step6_file.mal ../tests/incA.mal
+                  </ul>
+                <li>Result: a Lisp powerful enough to self-host
+              </ul>
+            </aside>
+</body>
+</html>

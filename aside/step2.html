@@ -1,0 +1,69 @@
+<html>
+<style>
+.next {
+    color: red;
+}
+.notes {
+    border: 1px solid black;
+}
+</style>
+<body>
+            <aside class="notes">
+              <ul>
+                <li>show step1 vs step2 diagram
+                  <ul>
+                    <li>eval_ast evaluates object (crash course)
+                      <ul>
+                        <li>describe each case
+                        <li>apply: invoke list
+                      </ul>
+                  </ul>
+                <li>cp step1_read_print.EXT step2_eval.EXT
+                  <ul>
+                    <li>require types (JS, Python)
+                    <li>repl_env dictionary with arith operations, pass in REP
+                      <ul>
+                        <li>:r ../re.txt
+                        <li>ruby you should pass repl_env explicity as argument
+                      </ul>
+                    <li>call eval_ast from EVAL
+                    <li>add eval_ast with symbol and else case
+                      <ul>
+                        <li>stub for list case: return []
+                      </ul>
+                    <li>EVAL:
+                      <ul>
+                        <li>add not list section
+                        <li>// apply section stub
+                          <ul>
+                            <li>say: still call eval_ast, capture result
+                            <li>say: return result of calling/invoking the first
+                              list element using the rest of the list as
+                              arguments.
+                          </ul>
+                      </ul>
+                  </ul>
+              </ul>
+            </aside>
+            <aside class="notes">
+              <ul>
+                <li>Step 2 Hands-On
+                <li>Finish implementation:
+                  <ul>
+                    <li>eval_ast list case
+                    <li>apply case
+                    <li>eval_ast could be called once, but as you might have
+                      guessed, we are setting ground work for future steps which
+                      will not be so simple
+                  </ul>
+                <li>run tests
+                <li>show some examples
+                  <ul>
+                    <li>add console.log at beginning of EVAL to demonstrate
+                  </ul>
+                <li>Result: a simple prefix calculator
+              </ul>
+            </aside>
+
+</body>
+</html>

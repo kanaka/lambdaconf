@@ -927,7 +927,7 @@ and read_form all_tokens =
           </section>
 
           <section data-background="#ffffff" data-transition="none">
-            <h2>Choose One:</h2>
+            <h4>Choose One:</h4>
             <table>
             <tr><td width=20%><font color="green">Ruby</font><br>
                                                   step0_repl.rb</td>
@@ -963,7 +963,7 @@ while True:
           </section>
 
           <section data-background="#ffffff" data-transition="none">
-            <h2>Step 0 Hands On</h2>
+            <h4>Step 0 Hands On</h4>
             <ul>
               <li>Verify you can run Step 0 in your target language:<br>
                   <pre><code class=bash>ruby ruby/step0_repl.rb</code></pre>
@@ -984,7 +984,7 @@ while True:
             <img src="media/step1_read_print.png"
                  width="80%" style="box-shadow: none;"></img>
             <aside class="notes">
-                aside/step1.html part 1
+              aside/step1.html part 1
             </aside>
           </section>
 
@@ -993,82 +993,233 @@ while True:
             <img src="media/reader.png"
                  width="80%" style="box-shadow: none;"></img>
             <aside class="notes">
-                aside/step1.html part 2
+              aside/step1.html part 2
             </aside>
           </section>
 
           <section data-background="#ffffff" data-transition="none">
-            <h2>Step 1 Hands On</h2>
+            <h4>Step 1 Hands On</h4>
             <ul>
               <li>Finish implementing read_list() in reader.EXT
-              <li>Get step 1 tests to pass:<br>
+              <li>Get all Step 1 tests to pass:<br>
                   <pre>make OPTIONAL=0 test^<font color="green">IMPL</font>^step1</pre>
             </ul>
             <aside class="notes">
-                aside/step1.html part 3
+              aside/step1.html part 3
             </aside>
           </section>
 
         </section>
 
         <section data-background="#ffffff" data-transition="none">
-          <h4>Step 2 - Expression Evaluation</h4>
-          <img src="media/step2_eval.png"
-               width="80%" style="box-shadow: none;"></img>
-          <aside class="notes">
+          <section data-background="#ffffff" data-transition="none">
+            <h4>Step 2 - Expression Evaluation</h4>
+            <img src="media/step2_eval.png"
+                 width="80%" style="box-shadow: none;"></img>
+            <aside class="notes">
+              aside/step2.html part 1
+            </aside>
+          </section>
+
+          <section data-background="#ffffff" data-transition="none">
+            <h4>Step 2 Hands On</h4>
             <ul>
-              <li>Simple Calculator
-              <li>Lorem ipsum. <span class="next">&gt;&gt;</span>
+              <li>Implement eval_ast(ast,env) to handle:
+                <ul>
+                  <li>symbol: lookup in environemnt
+                  <li>list: evaluate each element returning new list
+                  <li>otherwise return ast
+                </ul>
+              <li>Implement EVAL(ast, env):
+                <ul>
+                  <li>if ast is not list: return eval_ast
+                  <li>otherwise, eval_ast and apply/invoke function
+                </ul>
+              <li>Get all Step 2 tests to pass:<br>
+                  <pre>make OPTIONAL=0 test^<font color="green">IMPL</font>^step2</pre>
             </ul>
-          </aside>
+            <aside class="notes">
+              aside/step2.html part 2
+            </aside>
+          </section>
         </section>
 
         <section data-background="#ffffff" data-transition="none">
-          <h4>Step 3 - Lexical Environments</h4>
-          <img src="media/step3_env.png"
-               width="80%" style="box-shadow: none;"></img>
-          <aside class="notes">
+          <section data-background="#ffffff" data-transition="none">
+            <h4>Step 3 - Lexical Environments</h4>
+            <img src="media/step3_env.png"
+                 width="80%" style="box-shadow: none;"></img>
+            <aside class="notes">
+              aside/step3.html part 1
+            </aside>
+          </section>
+
+          <section data-background="#ffffff" data-transition="none">
+            <h4>Step 3 Hands On (part 1)</h4>
             <ul>
-              <li>Calculator with Memory
-              <li>Lorem ipsum. <span class="next">&gt;&gt;</span>
+              <li>Implement Env class/object and methods:
+                <ul>
+                  <li>set()
+                  <li>find()
+                  <li>get()
+                </ul>
+              <li>Use Env to define repl_env step3_env.EXT
             </ul>
-          </aside>
+            <aside class="notes">
+              aside/step3.html part 2
+            </aside>
+          </section>
+
+          <section data-background="#ffffff" data-transition="none">
+            <h4>Step 3 Hands On (part 2)</h4>
+            <ul>
+              <li>Implement def! special form
+              <li>Implement let* special form
+              <li>Get all Step 3 tests to pass:<br>
+                  <pre>make OPTIONAL=0 test^<font color="green">IMPL</font>^step3</pre>
+            </ul>
+            <aside class="notes">
+              aside/step3.html part 3
+            </aside>
+          </section>
         </section>
 
         <section data-background="#ffffff" data-transition="none">
-          <h4>Step 4 - Conditionals, Closures & Side-Effects</h4>
-          <img src="media/step4_if_fn_do.png"
-               width="80%" style="box-shadow: none;"></img>
-          <aside class="notes">
+          <section data-background="#ffffff" data-transition="none">
+            <h4>Step 4 - Conditionals, Closures & Side-Effects</h4>
+            <img src="media/step4_if_fn_do.png"
+                 width="80%" style="box-shadow: none;"></img>
+            <aside class="notes">
+              aside/step4.html part 1
+            </aside>
+          </section>
+
+          <section data-background="#ffffff" data-transition="none">
+            <h4>Step 4 Hands On (part 1)</h4>
             <ul>
-              <li>Barely Lisp
-              <li>Lorem ipsum. <span class="next">&gt;&gt;</span>
+              <li>Implement special forms:
+                <ul>
+                  <li>do
+                  <li>if
+                </ul>
+              <li>Get Step 4 do/if tests to pass:<br>
+                  <pre>make OPTIONAL=0 test^<font color="green">IMPL</font>^step4</pre>
             </ul>
-          </aside>
+            <aside class="notes">
+              aside/step4.html part 2
+            </aside>
+          </section>
+
+          <section data-background="#ffffff" data-transition="none">
+            <h4>Step 4 Hands On (part 2)</h4>
+            <ul>
+              <li>Implement Env constructor with bindings
+              <li>Implement fn* special form (return a closure)
+              <li>Get all Step 4 tests to pass:<br>
+                  <pre>make OPTIONAL=0 test^<font color="green">IMPL</font>^step4</pre>
+            </ul>
+            <aside class="notes">
+              aside/step4.html part 3
+            </aside>
+          </section>
         </section>
 
         <section data-background="#ffffff" data-transition="none">
-          <h4>Step 5 - Tail-Call Optimization</h4>
-          <img src="media/step5_tco.png"
-               width="80%" style="box-shadow: none;"></img>
-          <aside class="notes">
+          <section data-background="#ffffff" data-transition="none">
+            <h4>Step 5 - Tail-Call Optimization</h4>
+            <img src="media/step5_tco.png"
+                 width="80%" style="box-shadow: none;"></img>
+            <aside class="notes">
+              aside/step5.html part 1
+            </aside>
+          </section>
+
+          <section data-background="#ffffff" data-transition="none">
+            <h4>Step 5 Hands On</h4>
             <ul>
-              <li>More Efficient Lisp
-              <li>Lorem ipsum. <span class="next">&gt;&gt;</span>
+              <li>Implement TCO loop for:
+                <ul>
+                  <li>let*
+                  <li>do
+                  <li>if
+                </ul>
+              <li>Capture env, ast, and params in fn* special form
+              <li>Implement TCO loop in EVAL apply section
+              <li>Get all Step 5 tests to pass:<br>
+                  <pre>make OPTIONAL=0 test^<font color="green">IMPL</font>^step5</pre>
             </ul>
-          </aside>
+            <aside class="notes">
+              aside/step5.html part 2
+            </aside>
+          </section>
+
         </section>
 
         <section data-background="#ffffff" data-transition="none">
-          <h4>Step 6 - Files, Atoms, Arguments & Eval</h4>
-          <img src="media/step6_file.png"
-               width="80%" style="box-shadow: none;"></img>
-          <aside class="notes">
+          <section data-background="#ffffff" data-transition="none">
+            <h4>Step 6 - Files, Atoms, Arguments & Eval</h4>
+            <img src="media/step6_file.png"
+                 width="80%" style="box-shadow: none;"></img>
+            <aside class="notes">
+              aside/step6.html part 1
+            </aside>
+          </section>
+
+          <section data-background="#ffffff" data-transition="none">
+            <h4>Step 6 Hands On</h4>
             <ul>
-              <li>Meta-circular Evaluator
-              <li>Lorem ipsum. <span class="next">&gt;&gt;</span>
+              <li>Add *ARGV*
+              <li>Implement eval
+              <li>Implement load-file
+              <li>Implement script mode
+              <li>Get all Step 6 tests to pass:<br>
+                  <pre>make OPTIONAL=0 test^<font color="green">IMPL</font>^step6</pre>
             </ul>
-          </aside>
+            <aside class="notes">
+              aside/step6.html part 2
+            </aside>
+          </section>
+
+          <section data-background="#ffffff" data-transition="none">
+            <h4>Step 6++ - (a touch of Step A)</h4>
+            <aside class="notes">
+              aside/step6.html part 3
+            </aside>
+          </section>
+
+          <section data-background="#ffffff" data-transition="none">
+            <h4>Self-Hosting</h4>
+            <img src="media/inception_top.jpg"
+                 style="border: 0px; box-shadow: 0 0 1em;"></img>
+            <aside class="notes">
+              aside/step6.html part 3
+            </aside>
+          </section>
+
+          <section data-background="#ffffff" data-transition="none">
+            <h4>Step 6++ Hands On</h4>
+            <ul>
+              <li>Add *host-language*
+              <li>Add REPL startup header printing
+              <li>Implement new readline core function
+              <ul>
+                <li>readline
+              </ul>
+              <li>Test self-hosting of ../mal6/step1_read_print.mal
+              <li>Implement new core functions:
+              <ul>
+                <li>throw
+                <li>symbol?
+                <li>readline
+                <li>apply
+              </ul>
+              <li>Test self-hosting of ../mal6/step{2-6}*.mal
+            </ul>
+            <aside class="notes">
+              aside/step6.html part 2
+            </aside>
+          </section>
+
         </section>
 
         <section data-background="#ffffff" data-transition="none">
@@ -1078,7 +1229,6 @@ while True:
           <aside class="notes">
             <ul>
               <li>A Touch of Meta-Programming
-              <li>Lorem ipsum. <span class="next">&gt;&gt;</span>
             </ul>
           </aside>
         </section>
@@ -1090,7 +1240,6 @@ while True:
           <aside class="notes">
             <ul>
               <li>Meta-Programming Realized
-              <li>Lorem ipsum. <span class="next">&gt;&gt;</span>
             </ul>
           </aside>
         </section>
@@ -1102,7 +1251,6 @@ while True:
           <aside class="notes">
             <ul>
               <li>Try and Try Again
-              <li>Lorem ipsum. <span class="next">&gt;&gt;</span>
             </ul>
           </aside>
         </section>
@@ -1114,22 +1262,25 @@ while True:
           <aside class="notes">
             <ul>
               <li>Mal in Mal
-              <li>Lorem ipsum. <span class="next">&gt;&gt;</span>
             </ul>
           </aside>
         </section>
 
 
         <section>
-          <h2>Questions?</h2>
+          <h4>Questions?</h4>
           <div class="fragment">
           <hr>
+          <h4>Links</h4>
           <ul>
-            <li><a href="https://github.com/kanaka/mal">https://github.com/kanaka/mal</a>
-            <li><a href="https://github.com/kanaka/lambdaconf">https://github.com/kanaka/lambdaconf</a>
-            <li><span style="color: green">#mal</span> (freenode)
+            <li><a href="https://github.com/kanaka/mal">github.com/kanaka/mal</a>
+            <li><a href="https://github.com/kanaka/mal.tutorial">github.com/kanaka/mal.tutorial</a>
+            <li><a href="https://github.com/kanaka/lambdaconf">github.com/kanaka/lambdaconf</a>
+            <li><a href="https://github.com/kanaka/mal/blob/master/process/guide.md">github.com/kanaka/mal/blob/master/process/<font color="green">guide</font>.md</a>
+            <li><span style="color: green">#workshop_make_a_lisp</span> (lambdaconf.slack.com)
+            <li><span style="color: green">#mal</span> (irc.freenode.net)
             <li><a href="http://twitter.com/bus_kanaka">@bus_kanaka</a>
-            <li><a href="viasat.com">viasat.com</a>
+            <li><a href="http://viasat.com">viasat.com</a>
           </ul>
           </div>
           <aside class="notes">

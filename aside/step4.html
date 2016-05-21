@@ -1,0 +1,130 @@
+<html>
+<style>
+.next {
+    color: red;
+}
+.notes {
+    border: 1px solid black;
+}
+</style>
+<body>
+            <aside class="notes">
+              <ul>
+                <li>show step3 vs step4 diagram
+                  <ul>
+                    <li>Add core library functions (provided for you for time)
+                    <li>Add do, if and fn* special forms. 
+                    <li>Add "not" core function, but defined in mal itself
+                  </ul>
+                <li>cp step3_env.rb to step4_if_fn_do.rb
+                <li>Briefly describe core functions
+                  <ul>
+                    <li>basic arith is the same as before
+                    <li>string functions call printer pr_str on each argument.
+                      Different combinations of printing vs returning a string,
+                      escaping strings and concatenating or joining with a space.
+                  </ul>
+                <li>Implement step4 by importing core, and looping over core functions
+                  <ul>
+                    <li>show arith and new functions working
+                  </ul>
+                <li>Add do, if stubs and describe functionality
+                  <ul>
+                    <li>do: evaluates each argument, then returns the result of
+                      evaluating the last argument
+                    <li>if: evaluates the first argument, then depending on the
+                      truthiness of the first, evaluates and returns either the
+                      second argument or the third.
+                      <ul>
+                        <li>in Mal, false and nil are falsey, everything else true
+                        <li>In JS and python, need to handle the case where third
+                          argument is missing and return nil.
+                      </ul>
+                  </ul>
+              </ul>
+            </aside>
+
+            <aside class="notes">
+              <ul>
+                <li>Step 4 Hands-On Part 1 (do, if)
+                <li>Implement do
+                  <ul>
+                    <li>Show do, explain side-effect
+                  </ul>
+                <li>Implement if
+                  <ul>
+                    <li>reverse if to be consistent with other implementations where
+                      you have to compare explicitly to nil and false
+                    <li>technically not needed in ruby, but other implementations
+                      need to explicit check.
+                    <li>Show if, explain conditional evaluation:
+                      <ul>
+                        <li>as noted in crash course, special forms choose what to
+                          evaluate
+                        <li>could have defined if as function, but side-effects
+                          would always happen
+                      </ul>
+                  </ul>
+                <li>show fn* diagram
+                  <ul>
+                    <li>fn* takes two arguments: a parameter list and a body
+                      <ul>
+                        <li>fn* needs to return a function closure (called
+                          lambda in python and ruby) that captures the current
+                          environment, the parameter list and the function
+                          body.
+                        <li>When that closure is called, it creates a new
+                          environment with the original environment as the
+                          outer and the original parameter list bound to the
+                          arguments the closure was called with. Then it uses
+                          EVAL to evaluate the original body in that new
+                          environment.
+                      </ul>
+                  </ul>
+                <li>Add stubs for fn* and env binding and describe
+                  <ul>
+                    <li>we'll add support for parameter binding to Env class
+                    <li>add parameters and if statement
+                  </ul>
+              </ul>
+            </aside>
+
+            <aside class="notes">
+              <ul>
+                <li>Step 4 Hands-On Part 2 (env, fn*)
+                <li>Implement env binding
+                <li>Implement fn*
+                  <ul>
+                    <li>Update env.rb
+                      <ul>
+                        <li>populate data when create a new environment
+                        <li>skip &
+                      </ul>
+                    <li>Implement fn*
+                      <ul>
+                        <li>ruby closure, closes over body, parameter list and
+                          current environment
+                        <li>example ( (fn* (a b) (* a b)) 8 9)
+                        <li>when applied, calls EVAL with closed over body and a new
+                          environment using closed over environment and parameters
+                          plus the arguments the closure was called with
+                        <li>env inside the function has a bound to 8, b bound to 9
+                      </ul>
+                    <li>Add & to env.rb
+                    <li>Add not
+                      <ul>
+                        <li>defined using mal language itself
+                        <li>reverse truthiness of argument
+                      </ul>
+                    <li>Show fn*, & and not
+                 </ul>
+                <li>Run tests
+                <li>Result: a simple but real Lisp language
+                 <ul>
+                    <li>even higher order functions
+                        (def! gen-plusX (fn* (x) (fn* (b) (+ x b))))
+                 </ul>
+              </ul>
+            </aside>
+</body>
+</html>

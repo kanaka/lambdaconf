@@ -1,0 +1,92 @@
+<html>
+<style>
+.next {
+    color: red;
+}
+.notes {
+    border: 1px solid black;
+}
+</style>
+<body>
+            <aside class="notes">
+              <ul>
+                <li>We have a powerful Lisp with lexical environments, conditionals,
+                  and higher order functions, but it's inneficient. Especially for
+                  recursion (which you need in order to perform the equivalent of
+                  iteration):
+                  <ul>
+                    <li>For example, can do iteration using recursion
+                    <li>Show non-TCO recursion
+                      <ul>
+                        <li>(def! sum-to (fn* (n) (if (= n 0) 0 (+ n (sum-to (- n 1))))))
+                        <li>(sum-to 1000)
+                      </ul>
+                    <li>Bunch of EVAL/eval_ast on the stack
+                  </ul>
+                <li>show step4 vs step5 diagram
+                  <ul>
+                    <li>only change is this new arrow that loops from some of the
+                      special forms back to EVAL
+                    <li>wrap in a loop (no change yet)
+                    <li>let*: nothing can use env/ast because it's the last
+                    <li>do:
+                    <li>if
+                    <li>fn*
+                  </ul>
+                <li>cp step4_if_fn_do.js to step5_tco.js
+                <li>Stub/starter implementation:
+                  <ul>
+                    <li>Add loop around EVAL
+                    <li>Implement TCO for do
+                    <li>Implement fn* saving of attributes
+                    <li>Add stub conditional in "apply" section
+                  </ul>
+              </ul>
+            </aside>
+
+            <aside class="notes">
+              <ul>
+                <li>Step 5 Hands-On
+                  <ul>
+                    <li>for do, if: all RETURN EVAL() become updates to ast
+                      and/or env, and then continuing the loop
+                    <li>fn*: need to capture env, ast, and params directly in the
+                      data that is returned
+                      <ul>
+                        <li>in JS you can just add these attributes to the lambda
+                          directly
+                        <li>in Ruby, Python: a Function type is provided that you
+                          can store these attributes on.
+                      </ul>
+                    <li>in the apply/invoke section, if you have a function with
+                      that saved data, then generate the new environment for env,
+                      and set ast to the second argument and loop
+                  </ul>
+                <li>Finish implementation:
+                  <ul>
+                    <li>let*
+                    <li>if
+                    <li>apply
+                  </ul>
+                <li>Show TCO recursion
+                  <ul>
+                    <li>(def! sum-to (fn* (n) (if (= n 0) 0 (+ n (sum-to (- n 1))))))
+                    <li>(sum-to 1000)
+                      <ul>
+                        <li>does better, TCO if
+                      </ul>
+                    <li>(sum-to 10000)
+                      <ul>
+                        <li>still stack overflow
+                      </ul>
+                    <li>(def! sum2 (fn* (n acc) (if (= n 0) acc (sum2 (- n 1) (+ n acc)))))
+                    <li>(sum2 10 0)
+                    <li>(sum2 10000 0)
+                    <li>(sum2 100000 0) # no problem
+                  </ul>
+                <li>Run test
+                <li>Result: a Lisp with TCO recursion
+              </ul>
+            </aside>
+</body>
+</html>
