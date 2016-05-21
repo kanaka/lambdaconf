@@ -48,12 +48,10 @@
           <aside class="notes">
             <ul>
               <li>Silence phone
-              <li>Have sized window for mal demo open
-              <li>Prune foo from Makefile and foo/
-              <li>Build impls: bash, python, js, mal
-              <li>Setup screen sharing
               <li>Preload <a href="https://github.com/kanaka/mal/blob/master/process/guide.md">guide</a>
-              <li>Preload <a href="https://github.com/kanaka/mal/blob/master/process/guide.md#step0">step0 image</a>, <a href="https://github.com/kanaka/mal/blob/master/process/guide.md#step1">step1 image</a>, <a href="https://github.com/kanaka/mal/blob/master/process/guide.md#step2">step2 image</a> in presentation window for quick tabbing.
+              <li>Sharing/screen configuration: tmix with "edit" and
+              "test" windows/buffers.
+              <li>`git checkout start` in mal.tutorial/
             </ul>
           </aside>
         </section>
@@ -63,9 +61,10 @@
           <p>Joel Martin (kanaka)</a></p>
           <p><a href="https://github.com/kanaka">github.com/kanaka</a></p>
           <p><a href="http://twitter.com/bus_kanaka">@bus_kanaka</a></p>
-          <p>Principal Software Engineer at ViaSat, Inc</p>
+          <p class="fragment">Principal Software Engineer at ViaSat, Inc</p>
           <p class="fragment">Clojure</p>
           <p class="fragment">Satellites!</p>
+          <p class="fragment">Creator of noVNC and websockify</p>
           <aside class="notes">
             <ul>
                 <li>My name is Joel Martin
@@ -75,10 +74,243 @@
                 amazing people, and <span class="next">&gt;&gt;</span>
                 work at a company that does broadband Internet from
                 space.
+                <li><span class="next">&gt;&gt;</span> If you've heard
+                my name before, it's almost certainly for starting the
+                noVNC and websockify projects.
                 <li>Thanks to LambdaConf organizers for a great
                 conference so far!
             </ul>
           </aside>
+        </section>
+
+        <section>
+          <h3>Front Matter</h3>
+          <ul>
+            <li>Goal: <font color="green">Learn Lisp by creating a Lisp Interpreter</font>
+            <li>Prerequisites:
+            <ul>
+              <li>Moderate experience in any PL is recommended.
+              <li>git clone <a href="https://github.com/kanaka/mal.tutorial">github.com/kanaka/mal.tutorial</a>
+              <li>git, make and one of: ruby, node.js, or python
+            </ul>
+            <li>Resources:
+            <ul>
+                <li><a href="https://github.com/kanaka/mal/blob/master/process/guide.md">github.com/kanaka/mal/blob/master/process/<font color="green">guide</font>.md</a>
+                <li><a href="http://kanaka.github.io/mal/process/cheatsheet.html">kanaka.github.io/mal/process/<font color="green">cheatsheet</font>.html</a>
+                <li><a href="https://lambdaconf.slack.com">lambdaconf.slack.com</a>: <font color="green">#workshop_make_a_lisp</font>
+                <li><font color="green">#mal</font> at irc.freenode.net:6667
+            </ul>
+          </ul>
+          <aside class="notes">
+            <ul>
+                <li>Goal
+                <ul>
+                  <li>Creating a new compiler or interpreter for any
+                  given language will make you an expert in that
+                  language. The catch-22 is that for most languages you
+                  need to already have deep expertise in compiler and/or
+                  interpreter design in order to do that.
+                  <li>Except for Lisp. Any moderately skilled developer
+                  can implement a Lisp interpreter.
+                  <li>So if you here to learn the Zen of Lisp by
+                  implementing a Lisp then you're in the right place.
+                </ul>
+                <li>Prerequisites:
+                <ul>
+                  <li>Clone the tutorial if you haven't already
+                  <li>You can implement Mal in any Turing complete
+                    language that has decent I/O capabilities. But for
+                    this workshop, I'm going to show examples in Ruby,
+                    JavaScript and Python.
+                  <li>So I highly recommend that you pick one of those
+                  for hands-on practice during this workshop and then
+                  branch out from there.
+                </ul>
+                <li>Lots to cover and I'm going to move fast. If you
+                get behind, there are tags in the tutorial repo to
+                help you catch up.
+                <li>Guide and cheatsheet
+                <li>Slack channel. I'll be there after workshop during
+                conference and for a week or two after to answer
+                questions.
+                <li>More permanent: #mal channel on freenode for
+                general mal/make-a-lisp discussion.
+            </ul>
+          </aside>
+        </section>
+
+        <section>
+          <h2>Agenda</h2>
+          <ul style="font-size: 0.8em;">
+            <li>Lisp Crash Course
+            <li>Mal and the Make-A-Lisp Process
+            <li>Step 0
+            <li>Step 1 (Ruby)
+            <li><font color="gray">--- 10 min break ---</font>
+            <li>Step 2 (JavaScript)
+            <li>Step 3 (Python)
+            <li><font color="gray">--- 30 min break ---</font>
+            <li>Step 4 (Ruby)
+            <li>Step 5 (JavaScript)
+            <li><font color="gray">--- 10 min break ---</font>
+            <li>Step 6 (Python)
+            <li>Step 6++ (Ruby)
+            <li>Steps 7-A
+            <li>Finishing Thoughts
+          </ul>
+          <aside class="notes">
+            <ul>
+                <li>Start with a quick Lisp crash course
+                <li>Introduce mal
+                <li>Then jump into the steps with three breaks
+                <li>By step 6: you'll have a fully functioning Lisp
+                <li>Steps 7-A: I'll discuss the Lisp concepts from
+                these steps, but we won't have time for the hands-on
+                implementation. But steps 1-6 give you the core
+                foundation to build on and the make-a-lisp guide has
+                implementation details for those steps.
+            </ul>
+          </aside>
+        </section>
+
+        <section>
+          <section>
+            <h2>Lisp Crash Course</h2>
+            <pre class="fragment" style="font-size: 100px; text-align: center;"><code class="clojure" data-trim contenteditable>
+          (+ 1 41)
+            </code></pre>
+            <aside class="notes">
+              <ul>
+                <li>Lisp begins and ends with the evaluator, so let's
+                talk about that
+              </ul>
+            </aside>
+          </section>
+
+          <section>
+            <pre><code class="clojure" data-trim contenteditable>user&gt; 42
+<div class="fragment">42
+            </code></pre>
+            <pre class="fragment"><code class="clojure" data-trim contenteditable>user&gt; "forty two"
+<div class="fragment">"forty two"
+            </code></pre>
+            <pre class="fragment"><code class="clojure" data-trim contenteditable>user&gt; +
+<div class="fragment">#&lt;plus function&gt;
+            </code></pre>
+            <pre class="fragment"><code class="clojure" data-trim contenteditable>user&gt; abc
+<div class="fragment">[not found]
+            </code></pre>
+            <aside class="notes">
+              <ul>
+                <li>numbers evaluate to themselves
+                <li>so do strings
+                <li>symbols are evaluated by looking up what they are
+                bound to in the current lexical environment or an
+                ancestor of the current lexical environment.
+                <li>"+" is a symbol that is defined in the root
+                lexical environment. It evaluates to a function that
+                adds two numbers.
+                <li>If no binding is found then an error is raised.
+              </ul>
+            </aside>
+          </section>
+
+          <section>
+            <pre><code class="clojure" data-trim contenteditable>user&gt; [+ 20 22]
+<div class="fragment">[#&lt;plus function&gt; 20 22]
+            </code></pre>
+            <pre class="fragment"><code class="clojure" data-trim contenteditable>user&gt; [* 2 [+ 1 20]]
+<div class="fragment">[#&lt;mult function&gt; 2 [#&lt;plus function&gt; 1 20]]
+            </code></pre>
+            <pre class="fragment"><code class="clojure" data-trim contenteditable>user&gt; (+ 20 22)
+<div class="fragment">42
+            </code></pre>
+            <pre class="fragment"><code class="clojure" data-trim contenteditable>user&gt; (* 2 (+ 1 20))
+<div class="fragment">42
+            </code></pre>
+            <aside class="notes">
+              <ul>
+                <li>Vectors evaluate each of their elements.
+                <li>Including vectors in vectors (recursion)
+                <li>Lists in Lisp are special. What happens during
+                evaluation depends on what's in the first
+                position.
+                <ul>
+                  <li>When the first position evaluates to
+                  a function, then the other elments of the list
+                  are evaluated and the function is called with
+                  those evaluated argument as arguments.
+                  <li>Again, lists can be embedded within lists.
+                </ul>
+              </ul>
+            </aside>
+          </section>
+
+          <section>
+            <pre><code class="clojure" data-trim contenteditable>user&gt; (if true (prn 3) (prn 4))
+<div class="fragment">3
+nil
+            </code></pre>
+            <pre class="fragment"><code class="clojure" data-trim contenteditable>user&gt; (if false (prn 3) (prn 4))
+<div class="fragment">4
+nil
+            </code></pre>
+            <aside class="notes">
+              <ul>
+                <li>When the first position is a special form
+                (language syntax), then the special form itself
+                determines how and whether the other elements are
+                evaluated.
+                <li>Another way to think about it is that special
+                forms are like functions that get called with the
+                arguments before evaluation.
+                <li>In the case of the "if" special form, the first
+                argument is evaluated, but only the second or third
+                argument is evaluated depending on the truthiness of
+                the first argument
+              </ul>
+            </aside>
+          </section>
+
+          <section>
+            <pre class="fragment"><code class="clojure" data-trim contenteditable>user&gt; (def! abc (+ 1 2))
+<div class="fragment">3
+user&gt; abc
+3
+            </code></pre>
+            <pre class="fragment"><code class="clojure" data-trim contenteditable>user&gt; (fn* (a b) (* a b))
+<div class="fragment">(fn* (a b) (* a b))
+            </code></pre>
+            <pre class="fragment"><code class="clojure" data-trim contenteditable>user&gt; ( (fn* (a b) (* a b)) 6 7 )
+<div class="fragment">42
+            </code></pre>
+            <aside class="notes">
+              <ul>
+                <li>def! is another special form that makes a change
+                to the current lexical environment. The second
+                argument is evaluated and the result is bound to the
+                unevaluated symbol that is the first argument.
+                <li>Note that the first argument can't be evaluated
+                because we need the symbol, not what it evaluates to.
+                We would get an error in this case.
+                <li>abc now evaluates to 3 in the current lexical
+                environment.
+                <li>fn* is another special form that returns a new
+                function. It does not evaluate either the parameter
+                list or the function body. They are just stored as
+                part of the data type that represents the function.
+                <li>The function special form and the numbers 6 and
+                7 are evaluated. The resulting function is called
+                which creates a new exical environment with a and
+                b bound to 6 and 7 respectively. The function body is
+                evaluated in that new environment.
+                <li>That's our 10 min Lisp crash course. There are
+                some other important special forms and data-types, but
+                you now know the core of Lisp.
+              </ul>
+            </aside>
+          </section>
+
         </section>
 
         <section>
@@ -94,23 +326,17 @@
           </ul>
           <aside class="notes">
             <ul>
-                <li>I'm going to tell you a personal story about
-                language learning.
-                <li>
-                  <ul>
-                    <li> <span class="next">&gt;&gt;</span> Way back in 2013, Alan Dipert presented this at Clojure/conj
-                    <li>A Lisp implemented in bash <span class="next">&gt;&gt;</span> [mindblown]
-                    <li>This was basically my reaction.
-                    <li>Raised the question for me: what other
-                    non-traditional language could a Lisp be
-                    implemented in?
-                    <li>Had particular language in mind. As far as
-                    I knew, no one had ever written a Lisp using it.
-                    You'll see why in a moment.
-                  </ul>
-                <li><span class="next">&gt;&gt;</span> Lispy: a small and simple Python implementation of
-                a Lisp interpreter by Peter Norvig. I used that as
-                a model.
+              <li> <span class="next">&gt;&gt;</span> Way back in 2013, Alan Dipert presented this at Clojure/conj
+              <li>A Lisp implemented in bash <span class="next">&gt;&gt;</span> [mindblown]
+              <li>This was basically my reaction.
+              <li>Raised the question for me: what other
+              non-traditional language could a Lisp be implemented in?
+              <li>Had particular language in mind. As far as I knew,
+              no one had ever written a Lisp using it.  You'll see why
+              in a moment.
+              <li><span class="next">&gt;&gt;</span> Lispy: a small
+              and simple Python implementation of a Lisp interpreter
+              by Peter Norvig. I used that as a model.
             </ul>
           </aside>
         </section>
@@ -185,9 +411,7 @@ user&gt; ( (fn* [a b] (* a b)) 7 8)
 less mal.mk</pre>
                 <li><span class="next">SWITCH</span> <span
                     class="next">&gt;&gt;</span> The name "Mal"
-                original "MAke Lisp" because that was all I was really
-                originally intenteding to do. But then I had the
-                thought...
+                original meant "MAke Lisp".
                 <li>Should be at <span class="next">10</span> min mark
               </ul>
           </section>
@@ -210,19 +434,8 @@ READ_FORM () {
             </code></pre>
             <aside class="notes">
               <ul>
-                <li>My JS and Make Lisp interpreters had a fairly
-                different structure compared to Gherkin. So I decided
-                to try my hand at Bash.
-                <li>Began to see patterns. Started thinking in terms
-                of small digestable chunks, largely due to the fact my
-                life, job and school meant I only had short segments
-                of time to work on it.
-                <li>Often it was at night while working on graduate
-                classes when I would take a 5-10 minute break and work
-                on whatever current mal implementation I happened to
-                have in the pipeline. And I'm not that brilliant so
-                I was forced to make a process that was very gradual
-                and incremental.
+                <li>But then I decided to implement mal in bash. Mal
+                and bash have a fairly different architecture.
               </ul>
             </aside>
           </section>
@@ -248,9 +461,7 @@ MalVal *read_form(Reader *reader) {
             </code></pre>
             <aside class="notes">
               <ul>
-                <li>First statically typed language. Led to
-                restructuring of the earlier 3 implementations. More
-                patterns became apparent.
+                <li>Then I did C.
               </ul>
             </aside>
           </section>
@@ -274,11 +485,7 @@ def read_form(reader):
             </code></pre>
             <aside class="notes">
               <ul>
-                <li>Mal had become a fairly different Lisp from Lispy
-                by this point. It modelled it on Clojure's syntax and
-                immutability because that was the Lisp I knew and
-                loved. But since Python was loosely part of the
-                heritage I decided I had to do python too.
+                <li>Then python
               </ul>
             </aside>
           </section>
@@ -302,17 +509,7 @@ def read_form(reader):
             </code></pre>
             <aside class="notes">
               <ul>
-                <li>And of course, since Mal is a Clojure-like Lisp,
-                I had to do in implementation in Clojure.
-                <li>This was really enlightening in terms of what
-                parts of Mal were really Lisp nature, and which parts
-                were really just incidental complexity due to
-                nature or dificiencies of the target language. And
-                I began to strongly structure the code and the
-                incremental steps to reflect that.
-                <li>However, I should point out that I later realized
-                that the "incidental complexity" is actually one of
-                the most useful aspects of mal, but we'll get to that.
+                <li>Clojure
               </ul>
             </aside>
           </section>
@@ -370,71 +567,7 @@ function read_form($reader) {
               than any other process I had used before.
               <li><span class="next">&gt;&gt;</span> And so Make Lisp
               became Make-A-Lisp
-              <li>But before we switch gears and focus on the language
-              learning aspects of the make-a-lisp process, let's
-              take brief look at mal the language along with a couple
-              of implementations.
             </ul>
-          </aside>
-        </section>
-
-        <section>
-          <h2>Mal Itself</h2>
-          <p>Demo Time</p>
-          <img class="fragment" src="media/surprised-baby.gif"></img>
-          <aside class="notes">
-            <font size="1em">
-            <ul>
-              <li>Should be at <span class="next">15</span> min mark
-              <li><span class="next">SWITCH</span>
-              <li>Let's start with a hello world mal program:
-<pre style="margin: 0px; background: #aaa;">
-cd ../python
-cat ../mal/hello.py</pre>
-              <li>but let's run it with the python implementation:
-<pre style="margin: 0px; background: #aaa;">
-./mal.py ../mal/hello.py</pre>
-              <li>Let's try something a bit more interesting but this
-              time using the bash implementation:
-<pre style="margin: 0px; background: #aaa;">
-cd ../bash
-./mal.sh ../mal/clojurewest2014.mal</pre>
-              <li>That's a presentation for a lightning talke I did on
-              mal at Clojure West.
-<pre style="margin: 0px; background: #aaa;">
-less ../mal/clojurewest2014.mal</pre>
-              <li>That's all well and good, but let's bump it up
-              a notch or three:
-<pre style="margin: 0px; background: #aaa;">
-cd ../js
-./mal.js ../mal/mal.mal</pre>
-              <li>I'll just pause for a second to let you stew on
-              that.
-              <li>Yes, that's the mal implementation of mal
-
-              <li><span class="next">SWITCH</span>[show gif]
-              <li>This was basically my reaction at the moment when
-              mal became self-hosting.
-              <li><span class="next">SWITCH</span>
-<pre style="margin: 0px; background: #aaa;">
-less ../mal/mal.mal
-</pre>
-              <li>More specifically, that's the JavaScript
-              implementation of mal being used to run an
-              implementation of mal that is written in the mal
-              language itself
-              <li>Self-hosting is the term for an interpreter or
-              compiler that is written in it's own language.
-<!--
-<pre style="margin: 0px; background: #aaa;">
-less ../mal/mal.mal</pre>
-              <li>And of course we can do this:
-<pre style="margin: 0px; background: #aaa;">
-./mal.js ../mal/mal.mal ../mal/hello.mal</pre>
-              <li>It's much slower, but it works the same
--->
-            </ul>
-            </font>
           </aside>
         </section>
 
@@ -462,13 +595,8 @@ less ../mal/mal.mal</pre>
 ...
             </code></pre>
           <aside class="notes">
+            <p>And I kept going</p>
             <p>Yes, Postscript the typesetting language.</p>
-            <p>After my lightning talk at Clojure West somebody
-            suggested Postscript and so I took up the challenge.</p>
-            <p>I had never written a line of code in
-            a stack-based/concatenative language like Postscript</p>
-            <p>More challenging than most, not as difficult as GNU
-            Make</p>
           </aside>
           </section>
 
@@ -732,7 +860,7 @@ and read_form all_tokens =
                 book "The Joy of Clojure")
                 <li>Marked a new era for mal (Jan 2015). The beginning
                 of a step-by-step guide. Other people have created
-                more implementations that I have since then.
+                more implementations than I have since then.
                 <li>Mal and make-a-lisp was no longer just my pet
                 project.
                 <li>Should be at <span class="next">20</span> min mark
@@ -742,25 +870,39 @@ and read_form all_tokens =
         </section>
 
         <section data-background="#ffffff">
-          <h3>Mal Today</h3>
+          <h4>Mal Today</h4>
           <img class="fragment" src="media/language_montage.png"
-               width="80%" style="box-shadow: none;"></img>
+               width="100%" style="box-shadow: none;"></img>
           <aside class="notes">
             <ul>
               <li>Which bring us to today. <span class="next">&gt;&gt;</span>
-              <li>There are now 42 implementations.
-              <li>14 of the last 20 were created by others. And of the
-              six I created many were either variations of exisiting
-              implementations (like ES6 and rpython) or to learn
-              a language for one of my PhD classes (like MATLAB) [or
-              experiment with a language idea for work (miniMAL)].
+              <li>There are now 53 implementations.
+              <li>20 of the last 31 were created by others.
               <li>The past 12 months have averaged more than
-              2 implementations per month.
-              <li>At this point you might be asking yourself "Why"?
-              Why did a bunch of people go through the work to do
-              this?
-              <li>The answer is actually really simple: because it was
-              fun! And not just fun, but addictive fun.
+              1.5 implementations per month.
+            </ul>
+          </aside>
+        </section>
+
+        <section data-background="#ffffff" data-transition="none">
+          <h2>Let's Make a Lisp</h2>
+          <ul class="fragment">
+            <li>Hint, to catch up:<br>
+              <pre>git checkout stepX_completed</pre>
+            <ul>
+              <ul>
+                <li>where X is current step - 1
+              </ul>
+            </ul>
+          </ul>
+          <aside class="notes">
+            <ul>
+              <li>Enough talking, let's make a lisp
+              <li><span class="next">&gt;&gt;</span>The tutorial
+              repository is tagged with the incremental steps. To
+              catch up, checkout stepX_completed (X = current-1). You
+              will need to move your in progress code out of the way
+              first (add and stash).
             </ul>
           </aside>
         </section>
@@ -769,33 +911,104 @@ and read_form all_tokens =
           <h3>The Steps</h3>
           <aside class="notes">
             <ul>
-              <li>Lorem ipsum. <span class="next">&gt;&gt;</span>
+              <li>Everybody ready?
             </ul>
           </aside>
         </section>
 
         <section data-background="#ffffff" data-transition="none">
-          <h4>Step 0 - Read/Eval/Print Loop</h4>
-          <img src="media/step0_repl.png"
-               width="80%" style="box-shadow: none;"></img>
-          <aside class="notes">
+          <section data-background="#ffffff" data-transition="none">
+            <h4>Step 0 - Read/Eval/Print Loop</h4>
+            <img src="media/step0_repl.png"
+                 width="80%" style="box-shadow: none;"></img>
+            <aside class="notes">
+              aside/step0.html part 1
+            </aside>
+          </section>
+
+          <section data-background="#ffffff" data-transition="none">
+            <h2>Choose One:</h2>
+            <table>
+            <tr><td width=20%><font color="green">Ruby</font><br>
+                                                  step0_repl.rb</td>
+            <td><pre><code class="ruby" data-trim contenteditable>
+require "readline"
+while line = Readline.readline("user> ", true)
+    puts line
+end
+            </code></pre></td>
+
+            <tr><td width=20%><font color="green">JavaScript</font><br>
+                                                  step0_repl.js</td>
+            <td><pre><code class="javascript" data-trim contenteditable>
+var rlSync = require('./readline').readlineSync
+while ((line = rlSync('user> ')) !== null) {
+    console.log(line)
+}
+            </code></pre></td>
+
+            <tr><td width=20%><font color="green">Python 3</font><br>
+                                                step0_repl.py</td>
+            <td><pre><code class="python" data-trim contenteditable>
+import readline
+while True:
+    try: print(input("user> "))
+    except EOFError: break
+            </code></pre></td>
+
+            </table>
+            <aside class="notes">
+              aside/step0.html part 2
+            </aside>
+          </section>
+
+          <section data-background="#ffffff" data-transition="none">
+            <h2>Step 0 Hands On</h2>
             <ul>
-             <li>Input and Output
-              <li>Lorem ipsum. <span class="next">&gt;&gt;</span>
+              <li>Verify you can run Step 0 in your target language:<br>
+                  <pre><code class=bash>ruby ruby/step0_repl.rb</code></pre>
+                  <pre><code class=bash>node js/step0_repl.js</code></pre>
+                  <pre><code class=bash>python3 python/step0_repl.py</code></pre>
+              <li>Get Step 0 tests to run in your target language:<br>
+                  <pre><code class=bash>make OPTIONAL=0 test^ruby^step0</code></pre>
+                  <pre><code class=bash>make OPTIONAL=0 test^js^step0</code></pre>
+                  <pre><code class=bash>make OPTIONAL=0 test^python^step0</code></pre>
             </ul>
-          </aside>
+          </section>
+
         </section>
 
         <section data-background="#ffffff" data-transition="none">
-          <h4>Step 1 - Reader & Printer</h4>
-          <img src="media/step1_read_print.png"
-               width="80%" style="box-shadow: none;"></img>
-          <aside class="notes">
+          <section data-background="#ffffff" data-transition="none">
+            <h4>Step 1 - Reader & Printer</h4>
+            <img src="media/step1_read_print.png"
+                 width="80%" style="box-shadow: none;"></img>
+            <aside class="notes">
+                aside/step1.html part 1
+            </aside>
+          </section>
+
+          <section data-background="#ffffff" data-transition="none">
+            <h3>The Reader</h3>
+            <img src="media/reader.png"
+                 width="80%" style="box-shadow: none;"></img>
+            <aside class="notes">
+                aside/step1.html part 2
+            </aside>
+          </section>
+
+          <section data-background="#ffffff" data-transition="none">
+            <h2>Step 1 Hands On</h2>
             <ul>
-              <li>Syntax Checker
-              <li>Lorem ipsum. <span class="next">&gt;&gt;</span>
+              <li>Finish implementing read_list() in reader.EXT
+              <li>Get step 1 tests to pass:<br>
+                  <pre>make OPTIONAL=0 test^<font color="green">IMPL</font>^step1</pre>
             </ul>
-          </aside>
+            <aside class="notes">
+                aside/step1.html part 3
+            </aside>
+          </section>
+
         </section>
 
         <section data-background="#ffffff" data-transition="none">
@@ -945,8 +1158,6 @@ and read_form all_tokens =
             <ul>
               <li>Fortran
               <li>COBOL
-              <li>Pascal
-              <li>Ada
               <li>Assembly
             </ul>
           </ul>
@@ -956,8 +1167,6 @@ and read_form all_tokens =
             <li>Something new
             <ul>
               <li>Idris
-              <li>Io
-              <li>Dart
               <li>Elm
               <li>TypeScript
             </ul>
@@ -971,9 +1180,8 @@ and read_form all_tokens =
             <li>Something borrowed<br>(from another domain)
             <ul>
               <li>TeX
-              <li>PL/SQL
               <li>Prolog
-              <li>Verilog / VHDL
+              <li>nginScript
             </ul>
           </ul>
           </span>
@@ -981,7 +1189,6 @@ and read_form all_tokens =
           <ul>
             <li>Something blue<br>(corporate/government)
             <ul>
-              <li>Objective-C
               <li>PowerShell
               <li>ColdFusion
               <li>MUMPS (OpenM)

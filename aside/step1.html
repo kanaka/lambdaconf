@@ -1,0 +1,92 @@
+<html>
+<style>
+.next {
+    color: red;
+}
+.notes {
+    border: 1px solid black;
+}
+</style>
+<body>
+            <aside class="notes">
+              <ul>
+                <li><span class="next">show step0 vs step1 diagram</span>
+                <li><span class="next">Show step1_read_print.rb.</span>
+                  <ul>
+                    <li>Already exists in all three language in the
+                    repository.
+                    <li>Because fairly tedious, not specific to Lisp (JSON, XML,
+                      HTML -&gt; DOM, etc)
+                    <li>Basically just the step0 with: reader, printer calls and
+                      catching exceptions.
+                    <li>Interesting bits are in reader and printer
+                  </ul>
+                <li><span class="next">vv</span>
+              </ul>
+            </aside>
+
+            <aside class="notes">
+              <ul>
+                <li>Tokenizing and Parsing (<span class="next">diagram</span>)
+                  <ul>
+                    <li>simple parsing is big strength of Lisp but step1 is still
+                      one of the hardest steps. Take source, generate AST, then
+                      print it.
+                    <li>what people mean when they say Lisp is homoiconic
+                  </ul>
+                <li><span class="next">Walk through reader.rb</span>
+                  <ul>
+                    <li>read_str - tokenizes string, creates Reader object, reads a form
+                    <li>tokenize - magic regex that split string into Lisp tokens
+                      <ul>
+                        <li>actually not as complicated as it looks. Most
+                          interesting part is matching string since they might
+                          contain escaped double-quotes
+                      </ul>
+                    <li>Reader: position, peek, next
+                    <li>read_form: "(" -&gt; read_list, ")" -&gt; error, OR read_atom
+                    <li>read_atom:
+                      <ul>
+                        <li>Ruby has symbols
+                        <li>JS has Symbol type in types.js
+                        <li>Python has symbol types in mal_types.py
+                      </ul>
+                    <li>read_list:
+                      <ul>
+                        <li>first token is "(" so discard (add it as example)
+                        <li>for excercise:
+                          <ul>
+                            <li>read_form until ")"
+                            <li>also, if encounter EOF (no token), raise error
+                          </ul>
+                      </ul>
+                  </ul>
+                <li><span class="next">Walk through printer.rb</span>
+                  <ul>
+                    <li>pr_str:
+                      <ul>
+                        <li>Array: recursively call pr_str on array elements,
+                          separated with space and surrounded by quotes.
+                        <li>string: if print_readably, then string get escaped and
+                          surrounded by quotes, otherwise literal string
+                      </ul>
+                  </ul>
+                <li>Show faling tests
+              </ul>
+            </aside>
+
+            <aside class="notes">
+              <ul>
+                <li>Step 1 Hands-On
+                  <ul>
+                    <li>Run tests, add failing cases to read_list
+                  </ul>
+                <li>Print tokens in read_str and use repl to show internal rep
+                  <ul>
+                    <li>comment out
+                  </ul>
+                <li>Result: a mal Lisp syntax checker
+              </ul>
+            </aside>
+</body>
+</html>
