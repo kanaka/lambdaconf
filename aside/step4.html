@@ -6,6 +6,11 @@
 .notes {
     border: 1px solid black;
 }
+.notes ul {
+    margin: 2px;
+    padding-start: 20px;
+    -webkit-padding-start: 20px;
+}
 </style>
 <body>
             <aside class="notes">
@@ -19,15 +24,13 @@
                 <li>cp step3_env.rb to step4_if_fn_do.rb
                 <li>Briefly describe core functions
                   <ul>
-                    <li>basic arith is the same as before
-                    <li>string functions call printer pr_str on each argument.
-                      Different combinations of printing vs returning a string,
-                      escaping strings and concatenating or joining with a space.
+                    <li>arith same as before, string funcs call
+                    printer pr_str on each arg.  Different
+                    combinations of printing vs returning a string,
+                    escaping strings and concatenating or joining with
+                    a space.
                   </ul>
-                <li>Implement step4 by importing core, and looping over core functions
-                  <ul>
-                    <li>show arith and new functions working
-                  </ul>
+                <li>Implement step4 by importing core, looping over core functions <span class="next">[Show arith and new funcs]</span>
                 <li>Add do, if stubs and describe functionality
                   <ul>
                     <li>do: evaluates each argument, then returns the result of
@@ -47,17 +50,15 @@
             <aside class="notes">
               <ul>
                 <li>Step 4 Hands-On Part 1 (do, if)
-                <li>Implement do
-                  <ul>
-                    <li>Show do, explain side-effect
-                  </ul>
+                <li>Implement do <span class="next">[Show do, explain side-effect]</span>
                 <li>Implement if
                   <ul>
-                    <li>reverse if to be consistent with other implementations where
-                      you have to compare explicitly to nil and false
-                    <li>technically not needed in ruby, but other implementations
-                      need to explicit check.
-                    <li>Show if, explain conditional evaluation:
+                    <li>reversed for consistency with other impls
+                    where you have to compare explicitly to nil and
+                    false
+                    <li>not needed in ruby, but other implementations
+                    need to explicit check.
+                    <li><span class="next">[Show if, explain conditional evaluation]:</span>
                       <ul>
                         <li>as noted in crash course, special forms choose what to
                           evaluate
@@ -65,6 +66,11 @@
                           would always happen
                       </ul>
                   </ul>
+              </ul>
+            </aside>
+
+            <aside class="notes">
+              <ul>
                 <li>show fn* diagram
                   <ul>
                     <li>fn* takes two arguments: a parameter list and a body
@@ -82,42 +88,26 @@
                       </ul>
                   </ul>
                 <li>Add stubs for fn* and env binding and describe
-                  <ul>
-                    <li>we'll add support for parameter binding to Env class
-                    <li>add parameters and if statement
-                  </ul>
+                    (parameter binding for fn* support)
               </ul>
             </aside>
 
             <aside class="notes">
               <ul>
                 <li>Step 4 Hands-On Part 2 (env, fn*)
-                <li>Implement env binding
+                <li>Implement env binding in env.rb
                 <li>Implement fn*
                   <ul>
-                    <li>Update env.rb
-                      <ul>
-                        <li>populate data when create a new environment
-                        <li>skip &
-                      </ul>
-                    <li>Implement fn*
-                      <ul>
-                        <li>ruby closure, closes over body, parameter list and
-                          current environment
-                        <li>example ( (fn* (a b) (* a b)) 8 9)
-                        <li>when applied, calls EVAL with closed over body and a new
-                          environment using closed over environment and parameters
-                          plus the arguments the closure was called with
-                        <li>env inside the function has a bound to 8, b bound to 9
-                      </ul>
-                    <li>Add & to env.rb
-                    <li>Add not
-                      <ul>
-                        <li>defined using mal language itself
-                        <li>reverse truthiness of argument
-                      </ul>
-                    <li>Show fn*, & and not
-                 </ul>
+                    <li>ruby closure, closes over body, parameter list and
+                      current environment
+                    <li>example ( (fn* (a b) (* a b)) 8 9)
+                    <li>when applied, calls EVAL with closed over body and a new
+                      environment using closed over environment and parameters
+                      plus the arguments the closure was called with
+                    <li>env inside the function has a bound to 8, b bound to 9
+                  </ul>
+                <li>Implement &amp; variadic bindings in env.rb <span class="next">[Show]</span>
+                <li>Add not: defined using mal itself, reverses truthiness of arg <span class="next">[Show]</span>
                 <li>Run tests
                 <li>Result: a simple but real Lisp language
                  <ul>

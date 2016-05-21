@@ -6,14 +6,19 @@
 .notes {
     border: 1px solid black;
 }
+.notes ul {
+    margin: 2px;
+    padding-start: 20px;
+    -webkit-padding-start: 20px;
+}
 </style>
 <body>
             <aside class="notes">
               <ul>
                 <li>We have a powerful Lisp with lexical environments, conditionals,
                   and higher order functions, but it's inneficient. Especially for
-                  recursion (which you need in order to perform the equivalent of
-                  iteration):
+                  recursion (needed in order to perform the equivalent
+                  of iteration):
                   <ul>
                     <li>For example, can do iteration using recursion
                     <li>Show non-TCO recursion
