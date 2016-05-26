@@ -1290,35 +1290,51 @@ while True:
         </section>
 
         <section data-background="#ffffff" data-transition="none">
-          <h4>Step A - Mal</h4>
-          <img src="media/stepA_mal.png"
-               width="80%" style="box-shadow: none;"></img>
-          <aside class="notes">
-            <ul>
-              <li>Result: Mal in Mal
-              <li>The miscellaneous things needed for full self-hosting.
-              <li>We already implemented some of these to self-host
-              the mal6 implementation at least up through step 6.
-              <li>However, mal6 is an ugly implementation of mal for
-              this workshop called mal6. The real implementation of
-              mal-in-mal is much more similar to a normal
-              implementation of mal (without lots of workarounds) and
-              is itself implemented all the way through stepA. It uses
-              vectors, hash-maps, macros, metadata and exceptions
-              support from step7-A.
-              <li>Example:<pre>
-cd c
-./stepA_mal ../mal/stepA_mal.mal
-./stepA_mal ../mal/stepA_mal.mal ../mal/stepA_mal.mal
-</pre>
-              <li>Could go further, but it gets exponentially slower,
-              so it takes a while
-              <li>Step A is also where interop with the host is
-              implemented but that's entirely optional.
-            </ul>
-          </aside>
-        </section>
+          <section data-background="#ffffff" data-transition="none">
+            <h4>Step A - Mal</h4>
+            <img src="media/stepA_mal.png"
+                 width="80%" style="box-shadow: none;"></img>
+            <aside class="notes">
+              <ul>
+                <li>Result: Mal in Mal
+                <li>The miscellaneous things needed for full self-hosting.
+                <li>We already implemented some of these to self-host
+                the mal6 implementation at least up through step 6.
+                <li>However, mal6 is an ugly implementation of mal for
+                this workshop called mal6. The real implementation of
+                mal-in-mal is much more similar to a normal
+                implementation of mal (without lots of workarounds) and
+                is itself implemented all the way through stepA. It uses
+                vectors, hash-maps, macros, metadata and exceptions
+                support from step7-A.
+                <li>Example:<pre>
+  cd c
+  ./stepA_mal ../mal/stepA_mal.mal
+  ./stepA_mal ../mal/stepA_mal.mal ../mal/stepA_mal.mal
+  </pre>
+                <li>C implementation of mal running the mal
+  implementation of mal which is running the mal implementation of
+  mal.
+                <li><span class="next">vv</span>
+              </ul>
+            </aside>
+          </section>
 
+          <section data-background="#ffffff" data-transition="none">
+            <img src="media/inception_top.jpg"
+                 style="border: 0px; box-shadow: 0 0 1em;"></img>
+            <aside class="notes">
+              <ul>
+                <li>Feeling like this again?
+                <li>Could go further, but it gets exponentially slower,
+                so it takes a while
+                <li>Step A is also where interop with the host is
+                implemented but that's entirely optional.
+              </ul>
+            </aside>
+          </section>
+
+        </section>
 
         <section>
           <h4>Questions?</h4>
@@ -1338,8 +1354,31 @@ cd c
           </div>
           <aside class="notes">
             <ul>
-              <li><span class="next">&gt;&gt;</span> I'll also put up
+              <li>That brings us to the end of this workshop. So I'll
+              take any final questions.
+              <li><span class="next">&gt;&gt;</span>I'll also put up
               some reference links while I take questions.
+              <li>While end of workshop, this shouldn't be the end for
+              this little journey.
+              <li>I strongly encourage you to finish your
+              implementation (refer to the guide for more detail).
+              <li>Then continue with one of these options:
+              <ul>
+                <li>Pick a harder language that you know to do an
+                implementation in (solidify you understanding of
+                Lisp).
+                <li>Implement it in a language you don't know to learn
+                that language.
+                <li>Implement it in a language that mal hasn't been
+                done in yet and submit it for inclusion in the main
+                mal tree.
+              </ul>
+              <li>As I mentioned, I will try to periodical check the
+              mal slack channel during the rest of the conference and
+              for a couple weeks after.
+              <li>Also, join the #mal IRC channel on freenode for
+              ongoing general mal discussion.
+              <li>Thanks!
             </ul>
           </aside>
         </section>
