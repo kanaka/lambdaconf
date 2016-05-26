@@ -67,5 +67,45 @@
                 <li>Result: A Lisp scripting language
               </ul>
             </aside>
+
+<br><br><br><br><br>
+<br><br><br><br><br>
+<br><br><br><br><br>
+<br><br><br><br>
+<pre>
+    Tutorial: Python Step 6 completed
+
+diff -urp python/step5_tco.py python/step6_file.py 
+--- python/step5_tco.py 2016-05-12 10:48:56.371445094 -0500
++++ python/step6_file.py        2016-05-12 10:49:34.631951200 -0500
+@@ -47,7 +47,9 @@ def EVAL(ast, env):
+         else:
+             ast = a2 # TCO
+     elif "fn*" == a0:
+-        return types.Function(ast[2], ast[1], env)
++        f = types.Function(ast[2], ast[1], env)
++        f.apply = lambda args: EVAL(f.ast, Env(f.env, f.params, list(args)))
++        return f
+     else:
+         el = eval_ast(ast, env)
+         f = el[0]
+@@ -69,9 +71,16 @@ def REP(str):
+ 
+ # core.py: defined using python
+ for k,v in core.ns.items(): repl_env.set(types.Symbol(k), v)
++repl_env.set(types.Symbol('eval'), lambda ast: EVAL(ast, repl_env))
++repl_env.set(types.Symbol('*ARGV*'), list(sys.argv[2:]))
+ 
+ # core.mal: defined using the language itself
+ REP("(def! not (fn* (a) (if a false true)))")
++REP("(def! load-file (fn* (f) (eval (read-string (str \"(do \" (slurp f) \")\")))))")
++
++if len(sys.argv) >= 2:
++    REP('(load-file "' + sys.argv[1] + '")')
++    sys.exit(0)
+ 
+ # repl loop
+ while True:
+</pre>
 </body>
 </html>

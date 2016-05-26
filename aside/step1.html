@@ -93,5 +93,30 @@
                 <li>Result: a mal Lisp syntax checker
               </ul>
             </aside>
+
+<br><br><br><br><br>
+<br><br><br>
+<pre>
+    Tutorial: Ruby Step 1 completed.
+
+diff --git a/ruby/reader.rb b/ruby/reader.rb
+index 2905c4f..54a9342 100644
+--- a/ruby/reader.rb
++++ b/ruby/reader.rb
+@@ -38,6 +38,14 @@ end
+ 
+ def read_list(rdr)
+     ast = []
++    rdr.next
++    while (token = rdr.peek) != ')'
++        if token == nil then
++            raise "expected ')', got EOF"
++        end
++        ast.push(read_form(rdr))
++    end
++    rdr.next
+     return ast
+ end
+</pre>
 </body>
 </html>

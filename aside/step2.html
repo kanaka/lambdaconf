@@ -70,5 +70,66 @@
               </ul>
             </aside>
 
+<br><br><br><br><br>
+<br><br><br><br><br>
+<br><br><br><br><br>
+<br><br><br><br><br>
+<pre>
+    Tutorial: JavaScript Step 2 completed.
+
+diff -urp js/step1_read_print.js js/step2_eval.js
+--- js/step1_read_print.js    2016-05-11 22:18:04.321509602 -0500
++++ js/step2_eval.js    2016-05-11 22:21:18.384082477 -0500
+@@ -1,4 +1,5 @@
+ var readline = require('./readline'),
++    types = require('./types'),
+     reader = require('./reader'),
+     printer = require('./printer')
+ 
+@@ -6,16 +7,41 @@ function READ(str) {
+     return reader.read_str(str)
+ }
+ 
++function eval_ast(ast, env) {
++    if (ast instanceof types.Symbol) {
++        return env[ast.name]
++    } else if (Array.isArray(ast)) {
++        return ast.map(function(a) { return EVAL(a, env) })
++    } else {
++        return ast
++    }
++}
++
+ function EVAL(ast, env) {
+-    return ast
++    if (!Array.isArray(ast)) {
++        return eval_ast(ast, env)
++    }
++
++    // apply
++    if (ast.length === 0) { return ast }
++    var el = eval_ast(ast, env),
++        f = el[0]
++    return f.apply(f, el.slice(1))
+ }
+ 
+ function PRINT(exp) {
+     return printer.pr_str(exp, true)
+ }
+ 
++repl_env = {
++    '+': function(a,b) { return a+b},
++    '-': function(a,b) { return a-b},
++    '*': function(a,b) { return a*b},
++    '/': function(a,b) { return a/b},
++}
++
+ function rep (line) {
+-    return PRINT(EVAL(READ(line), ''))
++    return PRINT(EVAL(READ(line), repl_env))
+ }
+ 
+ while ((line = readline.readlineSync('user> ')) !== null) {
+</pre>
 </body>
 </html>

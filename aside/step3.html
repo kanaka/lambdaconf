@@ -74,5 +74,85 @@
               </ul>
             </aside>
 
+<br><br><br><br><br>
+<br><br><br><br><br>
+<br><br><br><br><br>
+<br><br>
+<pre style="font-size: 10.5px">
+diff --git a/python/env.py b/python/env.py
++class Env():
++    def __init__(self, outer=None):
++        self.data = {}
++        self.outer = outer
++
++    def set(self, key, value):
++        self.data[key] = value
++        return value
++
++    def find(self, key):
++        if key in self.data: return self
++        elif self.outer:     return self.outer.find(key)
++        else:                return None
++
++    def get(self, key):
++        env = self.find(key)
++        if not env: raise Exception("'" + key + "' not found")
++        return env.data[key]
+
+diff -urp python/step2_eval.py python/step3_env.py 
+@@ -2,6 +2,7 @@ import sys, traceback
+ import mal_types as types
+ import reader, printer
++from env import Env
+ 
+ # read
+ def READ(str):
+@@ -10,8 +11,7 @@ def READ(str):
+ # eval
+ def eval_ast(ast, env):
+     if type(ast) == types.Symbol:
+-        try:    return env[ast]
+-        except: raise Exception("'" + ast + "' not found")
++        return env.get(ast)
+     elif type(ast) == list:
+         return list(map(lambda a: EVAL(a, env), ast))
+     else:
+@@ -23,9 +23,18 @@ def EVAL(ast, env):
+ 
+     # apply list
+     if len(ast) == 0: return ast
+-    el = eval_ast(ast, env)
+-    f = el[0]
+-    return f(*el[1:])
++    a0 = ast[0]
++    if 'def!' == a0:
++        return env.set(ast[1], EVAL(ast[2], env))
++    elif 'let*' == a0:
++        let_env = Env(env)
++        for i in range(0, len(ast[1]), 2):
++            let_env.set(ast[1][i], EVAL(ast[1][i+1], let_env))
++        return EVAL(ast[2], let_env)
++    else:
++        el = eval_ast(ast, env)
++        f = el[0]
++        return f(*el[1:])
+ 
+ 
+ # print
+@@ -33,10 +42,11 @@ def PRINT(exp):
+ 
+ # repl
+-repl_env = {'+': lambda a,b: a+b,
+-            '-': lambda a,b: a-b,
+-            '*': lambda a,b: a*b,
+-            '/': lambda a,b: int(a/b)}
++repl_env = Env()
++repl_env.set(types.Symbol('+'), lambda a,b: a+b)
++repl_env.set(types.Symbol('-'), lambda a,b: a-b)
++repl_env.set(types.Symbol('*'), lambda a,b: a*b)
++repl_env.set(types.Symbol('/'), lambda a,b: int(a/b))
+ 
+ def REP(str):
+</pre>
 </body>
 </html>

@@ -76,5 +76,64 @@
                 <li>Result: a Lisp powerful enough to self-host
               </ul>
             </aside>
+
+<br><br><br><br><br>
+<br><br><br><br><br>
+<br><br><br><br><br>
+<br><br><br><br><br>
+<pre>
+    Tutorial: Ruby Step A completed
+
+diff --git a/ruby/core.rb b/ruby/core.rb
+--- a/ruby/core.rb
++++ b/ruby/core.rb
+@@ -1,14 +1,19 @@
++require "readline"
+ require_relative "types"
+ require_relative "reader"
+ require_relative "printer"
+ 
+ $core_ns = {
+     :'=' =>    lambda {|a,b| a ==b},
++    :throw =>  lambda {|a| raise Exception.new(a)},
++
++    :symbol? =>  lambda {|a| a.is_a? Symbol},
+ 
+     :'pr-str' => lambda {|*a| a.map {|e| pr_str(e, true)}.join(" ")},
+     :str =>      lambda {|*a| a.map {|e| pr_str(e, false)}.join("")},
+     :prn =>      lambda {|*a| puts(a.map {|e| pr_str(e, true)}.join(" "))},
+     :println =>  lambda {|*a| puts(a.map {|e| pr_str(e, false)}.join(" "))},
++    :readline => lambda {|a| Readline.readline(a,true)},
+     :'read-string' => lambda {|a| read_str(a)},
+     :slurp =>    lambda {|a| File.read(a)},
+ 
+@@ -26,6 +31,7 @@ $core_ns = {
+ 
+     :count =>  lambda {|a| a == nil ? 0 : a.size},
+     :empty? => lambda {|a| a.size == 0},
++    :apply =>  lambda {|f,*a| f[*a[0..-2].concat(a[-1])]},
+ 
+     :atom =>      lambda {|a| Atom.new(a)},
+     :atom? =>     lambda {|a| a.is_a? Atom},
+diff -urp ruby/step6_file.rb ruby/stepA_mal.rb 
+--- ruby/step6_file.rb  2016-05-12 10:49:34.635951254 -0500
++++ ruby/stepA_mal.rb   2016-05-12 10:50:10.128420661 -0500
+@@ -87,6 +87,7 @@ end
+ $core_ns.each do |k,v| repl_env.set(k,v) end
+ repl_env.set(:eval, lambda {|ast| EVAL(ast, repl_env)})
+ repl_env.set(:'*ARGV*', ARGV.slice(1,ARGV.length) || [])
++repl_env.set(:'*host-language*', "ruby")
+ 
+ # core.mal: defined using mal itself
+ REP("(def! not (fn* (a) (if a false true)))", repl_env)
+@@ -98,6 +99,7 @@ if ARGV.size > 0
+ end
+ 
+ # repl loop
++REP("(println (str \"Mal [\" *host-language* \"]\"))", repl_env)
+ while line = Readline.readline("user> ", true)
+     begin
+         puts REP(line, repl_env)
+</pre>
 </body>
 </html>

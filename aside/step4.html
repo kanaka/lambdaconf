@@ -116,5 +116,85 @@
                  </ul>
               </ul>
             </aside>
+
+<br><br><br>
+<pre style="font-size: 10.5px">
+diff --git a/ruby/env.rb b/ruby/env.rb
+@@ -1,8 +1,16 @@
+ class Env
+     attr_accessor :data
+-    def initialize(outer=nil)
++    def initialize(outer=nil, binds=[], exprs=[])
+         @data = {}
+         @outer = outer
++        binds.each_index do |i|
++            if binds[i] == :"&"
++                data[binds[i+1]] = exprs.drop(i)
++                break
++            else
++                data[binds[i]] = exprs[i]
++            end
++        end
+         return self
+     end
+diff -urp ruby/step3_env.rb ruby/step4_if_fn_do.rb 
+--- ruby/step3_env.rb   2016-05-12 10:47:13.450083190 -0500
++++ ruby/step4_if_fn_do.rb      2016-05-12 10:48:19.950963240 -0500
+@@ -2,6 +2,7 @@ require "readline"
+ require_relative "printer"
+ require_relative "env"
++require_relative "core"
+ 
+ # read
+@@ -29,7 +30,7 @@ def EVAL(ast, env)
+ 
+     # apply list
+-    a0,a1,a2 = ast
++    a0,a1,a2,a3 = ast
+     case a0
+     when :def!
+         return env.set(a1, EVAL(a2, env))
+@@ -39,6 +40,21 @@ def EVAL(ast, env)
+             let_env.set(a, EVAL(e, let_env))
+         end
+         return EVAL(a2, let_env)
++    when :do
++        el = eval_ast(ast.drop(1), env)
++        return el.last
++    when :if
++        cond = EVAL(a1, env)
++        if not cond then
++            return nil if a3 == nil
++            return EVAL(a3, env)
++        else
++            return EVAL(a2, env)
++        end
++    when :"fn*"
++        return lambda {|*args|
++            EVAL(a2, Env.new(env, a1, Array.new(args)))
++        }
+     else
+         el = eval_ast(ast, env)
+@@ -53,15 +69,17 @@ end
+ # repl
+ repl_env = Env.new(nil)
+-repl_env.set(:+, lambda {|a,b| a + b})
+-repl_env.set(:-, lambda {|a,b| a - b})
+-repl_env.set(:*, lambda {|a,b| a * b})
+-repl_env.set(:/, lambda {|a,b| a / b})
+ 
+ def REP(str, env)
+     return PRINT(EVAL(READ(str), env))
+ end
+ 
++# core.rb: defined using ruby
++$core_ns.each do |k,v| repl_env.set(k,v) end
++
++# core.mal: defined using mal itself
++REP("(def! not (fn* (a) (if a false true)))", repl_env)
++
+ # repl loop
+ while line = Readline.readline("user> ", true)
+</pre>
 </body>
 </html>

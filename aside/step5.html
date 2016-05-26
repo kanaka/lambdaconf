@@ -93,5 +93,70 @@
                 <li>Result: a Lisp with TCO recursion
               </ul>
             </aside>
+
+<br><br><br><br>
+<pre style="font-size: 12px">
+    Tutorial: JavaScript Step 5 completed
+
+diff -urp js/step4_if_fn_do.js js/step5_tco.js 
+--- js/step4_if_fn_do.js        2016-05-12 10:48:19.950963240 -0500
++++ js/step5_tco.js     2016-05-12 10:48:56.371445094 -0500
+@@ -22,6 +22,7 @@ function eval_ast(ast, env) {
+ }
+ 
+ function EVAL(ast, env) {
++  while (true) {
+     if (!Array.isArray(ast)) {
+         return eval_ast(ast, env)
+     }
+@@ -37,25 +38,40 @@ function EVAL(ast, env) {
+         for (var i=0; i < a1.length; i+=2) {
+             let_env.set(a1[i], EVAL(a1[i+1], let_env))
+         }
+-        return EVAL(a2, let_env)
++        env = let_env
++        ast = a2
++        break // TCO
+     case "do":
+-        var el = eval_ast(ast.slice(1), env)
+-        return el[el.length-1]
++        eval_ast(ast.slice(1, -1), env)
++        ast = ast[ast.length-1]
++        break // TCO
+     case "if":
+         var cond = EVAL(a1, env)
+         if (cond === null || cond === false) {
+-            return ast.length > 3 ? EVAL(a3, env) : null
++            ast = ast.length > 3 ? a3 : null
+         } else {
+-            return EVAL(a2, env)
++            ast = a2
+         }
++        break // TCO
+     case "fn*":
+-        return function() {
++        var f = function() {
+             return EVAL(a2, new Env(env, a1, arguments))
+         }
++        f.ast = a2
++        f.params = a1
++        f.env = env
++        return f
+     default:
+         var el = eval_ast(ast, env), f = el[0]
+-        return f.apply(f, el.slice(1))
++        if (f.ast) {
++            ast = f.ast
++            env = new Env(f.env, f.params, el.slice(1))
++            break // TCO
++        } else {
++            return f.apply(f, el.slice(1))
++        }
+     }
++  }
+ }
+ 
+ // print
+</pre>
 </body>
 </html>

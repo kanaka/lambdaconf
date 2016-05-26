@@ -51,7 +51,7 @@
               <li>Preload <a href="https://github.com/kanaka/mal/blob/master/process/guide.md">guide</a>
               <li>Sharing/screen configuration: tmix with "edit" and
               "test" windows/buffers.
-              <li>`git checkout start` in mal.tutorial/
+              <li>`git checkout start` in mal.workshop/
             </ul>
           </aside>
         </section>
@@ -90,7 +90,7 @@
             <li>Prerequisites:
             <ul>
               <li>Moderate experience in any PL is recommended.
-              <li>git clone <a href="https://github.com/kanaka/mal.tutorial">github.com/kanaka/mal.tutorial</a>
+              <li>git clone <a href="https://github.com/kanaka/mal.workshop">https://github.com/kanaka/mal.workshop</a>
               <li>git, make and one of: ruby, node.js, or python
             </ul>
             <li>Resources:
@@ -117,7 +117,7 @@
                 </ul>
                 <li>Prerequisites:
                 <ul>
-                  <li>Clone the tutorial if you haven't already
+                  <li>Clone the workshop repo if you haven't already
                   <li>You can implement Mal in any Turing complete
                     language that has decent I/O capabilities. But for
                     this workshop, I'm going to show examples in Ruby,
@@ -127,7 +127,7 @@
                   branch out from there.
                 </ul>
                 <li>Lots to cover and I'm going to move fast. If you
-                get behind, there are tags in the tutorial repo to
+                get behind, there are tags in the workshop repo to
                 help you catch up.
                 <li>Guide and cheatsheet
                 <li>Slack channel. I'll be there after workshop during
@@ -898,7 +898,7 @@ and read_form all_tokens =
           <aside class="notes">
             <ul>
               <li>Enough talking, let's make a lisp
-              <li><span class="next">&gt;&gt;</span>The tutorial
+              <li><span class="next">&gt;&gt;</span>The workshop
               repository is tagged with the incremental steps. To
               catch up, checkout stepX_completed (X = current-1). You
               will need to move your in progress code out of the way
@@ -1229,6 +1229,16 @@ while True:
           <aside class="notes">
             <ul>
               <li>A Touch of Meta-Programming
+              <li>Power of Lisp is the ability to treat code as data
+              <li>Show examples (in full mal):
+              <ul>
+                  <li>quote: <pre>(quote (7 8))</pre>
+                  <li>quasiquote: <pre>(def! x 7)
+(def! y (list 7 8))
+(quasiquote (6 7 8))
+(quasiquote (6 (unquote x) 8))
+(quasiquote (6 (splice-unquote y) 9))
+</pre>
             </ul>
           </aside>
         </section>
@@ -1240,6 +1250,19 @@ while True:
           <aside class="notes">
             <ul>
               <li>Meta-Programming Realized
+              <li>Ability to generate Lisp code on the fly
+              <li>Another way of looking at it is that macros are
+              a way of defining new special form in mal itself.
+              <li>Sad couldn't get to this in the workshop, however,
+              I highly encourage you to continue on and implement
+              macro support because it will definitely give you an
+              enlightenment momentt.
+              <li>Example:<pre>
+(defmacro! unless (fn* (pred a b) (quasiquote (if (unquote pred) (unquote b) (unquote a)))))
+(unless true (prn 7) (prn 8))
+(unless false (prn 7) (prn 8))
+(macroexpand (unless false (prn 7) (prn 8)))
+</pre>
             </ul>
           </aside>
         </section>
@@ -1251,6 +1274,17 @@ while True:
           <aside class="notes">
             <ul>
               <li>Try and Try Again
+              <li>Uses language's native exception handling if
+              available.
+              <li>Try to evaluate the try* body, if there is an
+              exception, then bind it in a new environment and
+              evaluate the catch* body in that new environment.
+              <li>Example:<pre>
+(try* (abc 1 2 3) (catch* exc (do (prn "Ignoring exception" exc "and returning 7") 7)))
+</pre>
+              <li>Miscellaneous core functions.
+              <li>Good place to implement other types if you have
+              deferred them until now.
             </ul>
           </aside>
         </section>
@@ -1261,7 +1295,26 @@ while True:
                width="80%" style="box-shadow: none;"></img>
           <aside class="notes">
             <ul>
-              <li>Mal in Mal
+              <li>Result: Mal in Mal
+              <li>The miscellaneous things needed for full self-hosting.
+              <li>We already implemented some of these to self-host
+              the mal6 implementation at least up through step 6.
+              <li>However, mal6 is an ugly implementation of mal for
+              this workshop called mal6. The real implementation of
+              mal-in-mal is much more similar to a normal
+              implementation of mal (without lots of workarounds) and
+              is itself implemented all the way through stepA. It uses
+              vectors, hash-maps, macros, metadata and exceptions
+              support from step7-A.
+              <li>Example:<pre>
+cd c
+./stepA_mal ../mal/stepA_mal.mal
+./stepA_mal ../mal/stepA_mal.mal ../mal/stepA_mal.mal
+</pre>
+              <li>Could go further, but it gets exponentially slower,
+              so it takes a while
+              <li>Step A is also where interop with the host is
+              implemented but that's entirely optional.
             </ul>
           </aside>
         </section>
@@ -1274,7 +1327,7 @@ while True:
           <h4>Links</h4>
           <ul>
             <li><a href="https://github.com/kanaka/mal">github.com/kanaka/mal</a>
-            <li><a href="https://github.com/kanaka/mal.tutorial">github.com/kanaka/mal.tutorial</a>
+            <li><a href="https://github.com/kanaka/mal.workshop">github.com/kanaka/mal.workshop</a>
             <li><a href="https://github.com/kanaka/lambdaconf">github.com/kanaka/lambdaconf</a>
             <li><a href="https://github.com/kanaka/mal/blob/master/process/guide.md">github.com/kanaka/mal/blob/master/process/<font color="green">guide</font>.md</a>
             <li><span style="color: green">#workshop_make_a_lisp</span> (lambdaconf.slack.com)
