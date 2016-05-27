@@ -49,8 +49,7 @@
             <ul>
               <li>Silence phone
               <li>Preload <a href="https://github.com/kanaka/mal/blob/master/process/guide.md">guide</a>
-              <li>Sharing/screen configuration: tmix with "edit" and
-              "test" windows/buffers.
+              <li>Sharing/screen configuration: tmix with "edit" and "test" windows/buffers.
               <li>`git checkout start` in mal.workshop/
             </ul>
           </aside>
@@ -68,7 +67,7 @@
           <aside class="notes">
             <ul>
                 <li>My name is Joel Martin
-                <li>Principal Software Engineer at ViaSat, Inc
+                <li><span class="next">&gt;&gt;</span>Principal Software Engineer at ViaSat, Inc
                 <li>At ViaSat I get to build systems using <span
                 class="next">&gt;&gt;</span> Clojure, work with some
                 amazing people, and <span class="next">&gt;&gt;</span>
@@ -77,8 +76,6 @@
                 <li><span class="next">&gt;&gt;</span> If you've heard
                 my name before, it's almost certainly for starting the
                 noVNC and websockify projects.
-                <li>Thanks to LambdaConf organizers for a great
-                conference so far!
             </ul>
           </aside>
         </section>
@@ -129,7 +126,9 @@
                 <li>Lots to cover and I'm going to move fast. If you
                 get behind, there are tags in the workshop repo to
                 help you catch up.
-                <li>Guide and cheatsheet
+                <li>Guide: workshop content but more detailed.
+                <li>Cheatsheet: good after you've been through once
+                for reference
                 <li>Slack channel. I'll be there after workshop during
                 conference and for a week or two after to answer
                 questions.
@@ -307,6 +306,7 @@ user&gt; abc
                 <li>That's our 10 min Lisp crash course. There are
                 some other important special forms and data-types, but
                 you now know the core of Lisp.
+                <li>Should be at <span class="next">15</span> min mark
               </ul>
             </aside>
           </section>
@@ -412,7 +412,6 @@ less mal.mk</pre>
                 <li><span class="next">SWITCH</span> <span
                     class="next">&gt;&gt;</span> The name "Mal"
                 original meant "MAke Lisp".
-                <li>Should be at <span class="next">10</span> min mark
               </ul>
           </section>
           <section>
@@ -509,7 +508,13 @@ def read_form(reader):
             </code></pre>
             <aside class="notes">
               <ul>
-                <li>Clojure
+                <li>Clojure.
+                <li>Mal is definitely a Lisp that was inspired by
+                Clojure syntax and functionality:
+                data-structures that are immutable by default, rich
+                types and type literals, etc.
+                <li>So implementing mal using Clojure just seemed
+                like the right thing to do.
               </ul>
             </aside>
           </section>
@@ -863,7 +868,7 @@ and read_form all_tokens =
                 more implementations than I have since then.
                 <li>Mal and make-a-lisp was no longer just my pet
                 project.
-                <li>Should be at <span class="next">20</span> min mark
+                <li>Should be at <span class="next">~20</span> min mark
               </ul>
             </aside>
           </section>
@@ -1111,6 +1116,36 @@ while True:
           </section>
 
           <section data-background="#ffffff" data-transition="none">
+            <h4>Functions</h4>
+            <ul>
+              <li>Define / Create: <pre style="font-size: 40px; text-align: left;"><code class="clojure" data-trim contenteditable>
+          (fn* (a b) (* a b))
+            </code></pre>
+              <ul style="font-size: 25px">
+                <li>Capture/store:
+                <ul>
+                  <li>Current (defining) environment
+                  <li>Parameter list: (a b)
+                  <li>Function body: (* a b)
+                </ul>
+              </ul>
+              <br>
+              <li>Call / Invoke / Apply:
+            <pre style="font-size: 40px; text-align: left;"><code class="clojure" data-trim contenteditable>
+          (  (fn* (a b) (* a b))   7 8 )      ;
+            </code></pre>
+              <ul style="font-size: 25px">
+                <li>New environment using captured environment as outer/parent
+                <ul>
+                    <li>with parameter symbols bound to calling arguments
+                </ul>
+              </ul>
+            </ul>
+            <aside class="notes">
+            </aside>
+          </section>
+
+          <section data-background="#ffffff" data-transition="none">
             <h4>Step 4 Hands On (part 2)</h4>
             <ul>
               <li>Implement Env constructor with bindings
@@ -1174,6 +1209,13 @@ while True:
               <li>Implement script mode
               <li>Get all Step 6 tests to pass:<br>
                   <pre>make OPTIONAL=0 test^<font color="green">IMPL</font>^step6</pre>
+              <li>Python hint:<pre><code class="python" data-trim contenteditable>
+...                                                                               
+elif "fn*" == a0:
+    f = types.Function(ast[2], ast[1], env)
+    f.apply = lambda args: EVAL(f.ast, Env(f.env, f.params, list(args)))
+    return f
+</code></pre>
             </ul>
             <aside class="notes">
               aside/step6.html part 2
@@ -1183,7 +1225,7 @@ while True:
           <section data-background="#ffffff" data-transition="none">
             <h4>Step 6++ - (a touch of Step A)</h4>
             <aside class="notes">
-              aside/step6.html part 3
+              aside/step6++.html part 1
             </aside>
           </section>
 
@@ -1192,7 +1234,7 @@ while True:
             <img src="media/inception_top.jpg"
                  style="border: 0px; box-shadow: 0 0 1em;"></img>
             <aside class="notes">
-              aside/step6.html part 3
+              aside/step6++.html part 1
             </aside>
           </section>
 
@@ -1216,7 +1258,7 @@ while True:
               <li>Test self-hosting of ../mal6/step{2-6}*.mal
             </ul>
             <aside class="notes">
-              aside/step6.html part 2
+              aside/step6++.html part 2
             </aside>
           </section>
 
@@ -1228,6 +1270,7 @@ while True:
                width="80%" style="box-shadow: none;"></img>
           <aside class="notes">
             <ul>
+              <li>Should be at <span class="next">5:15pm</span> mark
               <li>A Touch of Meta-Programming
               <li>Power of Lisp is the ability to treat code as data
               <li>Show examples (in full mal):
@@ -1256,7 +1299,9 @@ while True:
               <li>Sad couldn't get to this in the workshop, however,
               I highly encourage you to continue on and implement
               macro support because it will definitely give you an
-              enlightenment momentt.
+              enlightenment moment.
+              <li>I personally found that implementing macros was the
+              moment when I actually began to understand them.
               <li>Example:<pre>
 (defmacro! unless (fn* (pred a b) (quasiquote (if (unquote pred) (unquote b) (unquote a)))))
 (unless true (prn 7) (prn 8))
@@ -1308,7 +1353,7 @@ while True:
                 vectors, hash-maps, macros, metadata and exceptions
                 support from step7-A.
                 <li>Example:<pre>
-  cd c
+  cd mal/c   # full mal implementation in C
   ./stepA_mal ../mal/stepA_mal.mal
   ./stepA_mal ../mal/stepA_mal.mal ../mal/stepA_mal.mal
   </pre>
@@ -1354,6 +1399,7 @@ while True:
           </div>
           <aside class="notes">
             <ul>
+              <li>Should be at <span class="next">5:25pm</span> mark
               <li>That brings us to the end of this workshop. So I'll
               take any final questions.
               <li><span class="next">&gt;&gt;</span>I'll also put up
